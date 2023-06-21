@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import RegistrationScreen from './src/Screens/RegistrationScreen';
+import { StyleSheet, View, ImageBackground } from 'react-native';
 import { useFonts } from 'expo-font';
+import RegistrationScreen from './src/Screens/RegistrationScreen';
+import photoBG from './src/images/photoBG.jpg'
 
 export default function App() {
 
@@ -17,7 +18,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <RegistrationScreen />
-      <StatusBar style="auto" />
+        <StatusBar style="auto" />
     </View>
   );
 }
@@ -28,5 +29,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
   },
 });
