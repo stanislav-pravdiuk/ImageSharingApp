@@ -1,9 +1,6 @@
-// import React from 'react';
 import { TextInput, StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import addImg from '../images/add.jpg';
-import photoBG from '../images/photoBG.jpg'
-
-
+import photoBG from '../images/photoBG.jpg';
 
 function RegistrationScreen() {
     return (
