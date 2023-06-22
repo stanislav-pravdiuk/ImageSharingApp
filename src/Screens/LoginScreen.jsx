@@ -8,28 +8,28 @@ function LoginScrin() {
             source={photoBG}
             style={styles.backgroundImage}
         >
-            <View style={styles.reg}>
-                <Image style={styles.reg__avatar} />
-                <Image source={delImg} style={styles.reg__add} />
-                <Text style={styles.reg__title}>Увійти</Text>
+            <View style={styles.log}>
+                <Image style={styles.log__avatar} />
+                <Image source={delImg} style={styles.log__add} />
+                <Text style={styles.log__title}>Увійти</Text>
                 <TextInput
-                    style={styles.reg__inputMail}
+                    style={styles.log__inputMail}
                     placeholder='Адреса електронної пошти'
                     placeholderTextColor='#BDBDBD'
                 />
                 <TextInput
-                    style={styles.reg__inputPass}
+                    style={styles.log__inputPass}
                     placeholder='Пароль'
                     placeholderTextColor='#BDBDBD'
                 />
-                <TouchableOpacity style={styles.reg__viewLink}>
-                    <Text style={styles.reg__viewLinkText}>Показати</Text>
+                <TouchableOpacity style={styles.log__viewLink}>
+                    <Text style={styles.log__viewLinkText}>Показати</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.reg__btn}>
-                    <Text style={styles.reg__btnText}>Увійти</Text>
+                <TouchableOpacity style={styles.log__btn}>
+                    <Text style={styles.log__btnText}>Увійти</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.reg__loginlink}>
-                    <Text style={styles.reg__linkText}>Немає акаунту? Зареєструватися</Text>
+                <TouchableOpacity style={styles.log__loginlink}>
+                    <Text style={styles.log__linkText}>Немає акаунту? Зареєструватися</Text>
                 </TouchableOpacity>
             </View>
         </ImageBackground>
@@ -37,7 +37,7 @@ function LoginScrin() {
 };
 
 const styles = StyleSheet.create({
-    reg: {
+    log: {
         alignItems: 'center',
         width: '100%',
         height: '100%',
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-    reg__avatar: {
+    log__avatar: {
         position: 'absolute',
         width: 120,
         height: 120,
@@ -58,14 +58,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#F6F6F6",
         borderRadius: 25,
     },
-    reg__add: {
+    log__add: {
         width: 25,
         height: 25,
         top: 21,
         left: 60,
         borderRadius: 100,
     },
-    reg__title: {
+    log__title: {
         fontFamily: 'RobotoMedium',
         fontSize: 30,
         width: 160,
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         marginBottom: 33,
         textAlign: 'center',
     },
-    reg__inputLog: {
+    log__inputLog: {
         width: 343,
         height: 50,
         backgroundColor: '#F6F6F6',
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         paddingBottom: 16,
     },
-    reg__inputMail: {
+    log__inputMail: {
         width: 343,
         height: 50,
         backgroundColor: '#F6F6F6',
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         paddingBottom: 16,
     },
-    reg__inputPass: {
+    log__inputPass: {
         width: 343,
         height: 50,
         backgroundColor: '#F6F6F6',
@@ -104,16 +104,16 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         paddingBottom: 16,
     },
-    reg__viewLink: {
+    log__viewLink: {
         marginTop: -50,
         marginLeft: 250,
     },
-    reg__viewLinkText: {
+    log__viewLinkText: {
         fontSize: 16,
         textAlign: 'right',
         color: '#1B4371',
     },
-    reg__btn: {
+    log__btn: {
         height: 51,
         backgroundColor: '#FF6C00',
         borderRadius: 100,
@@ -122,16 +122,16 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         paddingBottom: 16,
     },
-    reg__btnText: {
+    log__btnText: {
         textAlign: 'center',
         fontSize: 16,
         color: '#FFFFFF',
     },
-    reg__loginlink: {
+    log__loginlink: {
         marginTop: 16,
 
     },
-    reg__linkText: {
+    log__linkText: {
         fontSize: 16,
         color: '#1B4371',
     }
