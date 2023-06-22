@@ -1,47 +1,71 @@
-import { TextInput, StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native';
+import {
+    TextInput,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    KeyboardAvoidingView,
+    Keyboard,
+} from 'react-native';
 import addImg from '../images/add.jpg';
 import photoBG from '../images/photoBG.jpg';
 
 function RegistrationScreen() {
     return (
-        <ImageBackground
+    <>
+        <Image
             source={photoBG}
             style={styles.backgroundImage}
+            resizeMode='cover'
+        />
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.container}
+            keyboardVerticalOffset={-240}
         >
-            <View style={styles.reg}>
-                <Image style={styles.reg__avatar}/>
-                <Image source={addImg} style={styles.reg__add} />
-                <Text style={styles.reg__title}>Реєстрація</Text>
-                <TextInput
-                    style={styles.reg__inputLog}
-                    placeholder='Логін'
-                    placeholderTextColor='#BDBDBD'
-                />
-                <TextInput
-                    style={styles.reg__inputMail}
-                    placeholder='Адреса електронної пошти'
-                    placeholderTextColor='#BDBDBD'
-                />
-                <TextInput
-                    style={styles.reg__inputPass}
-                    placeholder='Пароль'
-                    placeholderTextColor='#BDBDBD'
-                />
-                <TouchableOpacity style={styles.reg__viewLink}>
-                    <Text style={styles.reg__viewLinkText}>Показати</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.reg__btn}>
-                    <Text style={styles.reg__btnText}>Реєстрація</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.reg__loginlink}>
-                    <Text style={styles.reg__linkText}>Вже є акаунт? Увійти</Text>
-                </TouchableOpacity>
-            </View>
-        </ImageBackground>    
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.reg}>
+                    <Image style={styles.reg__avatar}/>
+                    <Image source={addImg} style={styles.reg__add} />
+                    <Text style={styles.reg__title}>Реєстрація</Text>
+                    <TextInput
+                        style={styles.reg__inputLog}
+                        placeholder='Логін'
+                        placeholderTextColor='#BDBDBD'
+                    />
+                    <TextInput
+                        style={styles.reg__inputMail}
+                        placeholder='Адреса електронної пошти'
+                        placeholderTextColor='#BDBDBD'
+                    />
+                    <TextInput
+                        style={styles.reg__inputPass}
+                        placeholder='Пароль'
+                        placeholderTextColor='#BDBDBD'
+                    />
+                    <TouchableOpacity style={styles.reg__viewLink}>
+                        <Text style={styles.reg__viewLinkText}>Показати</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.reg__btn}>
+                        <Text style={styles.reg__btnText}>Реєстрація</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.reg__loginlink}>
+                        <Text style={styles.reg__linkText}>Вже є акаунт? Увійти</Text>
+                    </TouchableOpacity>
+                </View>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+    </>   
     )
 };
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        width: '100%'
+    },
     reg: {
         alignItems: 'center',
         width: '100%',
@@ -54,6 +78,7 @@ const styles = StyleSheet.create({
     backgroundImage: {
         width: '100%',
         height: '100%',
+        position: 'absolute'
     },
     reg__avatar: {
         position: 'absolute',

@@ -1,42 +1,67 @@
-import { TextInput, StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native';
+import {
+    TextInput,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    KeyboardAvoidingView,
+    Keyboard,
+
+} from 'react-native';
 import delImg from '../images/del.jpg';
 import photoBG from '../images/photoBG.jpg';
 
 function LoginScrin() {
     return (
-        <ImageBackground
-            source={photoBG}
-            style={styles.backgroundImage}
-        >
-            <View style={styles.log}>
-                <Image style={styles.log__avatar} />
-                <Image source={delImg} style={styles.log__add} />
-                <Text style={styles.log__title}>Увійти</Text>
-                <TextInput
-                    style={styles.log__inputMail}
-                    placeholder='Адреса електронної пошти'
-                    placeholderTextColor='#BDBDBD'
-                />
-                <TextInput
-                    style={styles.log__inputPass}
-                    placeholder='Пароль'
-                    placeholderTextColor='#BDBDBD'
-                />
-                <TouchableOpacity style={styles.log__viewLink}>
-                    <Text style={styles.log__viewLinkText}>Показати</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.log__btn}>
-                    <Text style={styles.log__btnText}>Увійти</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.log__loginlink}>
-                    <Text style={styles.log__linkText}>Немає акаунту? Зареєструватися</Text>
-                </TouchableOpacity>
-            </View>
-        </ImageBackground>
+        <>
+            <Image
+                source={photoBG}
+                style={styles.backgroundImage}
+                resizeMode='cover'
+            />
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={styles.container}
+                keyboardVerticalOffset={-230}
+            >                
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>                        
+                    <View style={styles.log}>                    
+                        <Image style={styles.log__avatar} />
+                        <Image source={delImg} style={styles.log__add} />
+                        <Text style={styles.log__title}>Увійти</Text>
+                        <TextInput
+                            style={styles.log__inputMail}
+                            placeholder='Адреса електронної пошти'
+                            placeholderTextColor='#BDBDBD'
+                        />
+                        <TextInput
+                            style={styles.log__inputPass}
+                            placeholder='Пароль'
+                            placeholderTextColor='#BDBDBD'
+                        />
+                        <TouchableOpacity style={styles.log__viewLink}>
+                            <Text style={styles.log__viewLinkText}>Показати</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.log__btn}>
+                            <Text style={styles.log__btnText}>Увійти</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.log__loginlink}>
+                            <Text style={styles.log__linkText}>Немає акаунту? Зареєструватися</Text>
+                        </TouchableOpacity>
+                    </View>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
+        </>
     );
 };
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        width: '100%',
+    },
     log: {
         alignItems: 'center',
         width: '100%',
@@ -49,6 +74,7 @@ const styles = StyleSheet.create({
     backgroundImage: {
         width: '100%',
         height: '100%',
+        position: 'absolute',
     },
     log__avatar: {
         position: 'absolute',
