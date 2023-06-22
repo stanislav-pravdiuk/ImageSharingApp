@@ -15,11 +15,19 @@ import photoBG from '../images/photoBG.jpg';
 function RegistrationScreen() {
     return (
     <>
-        <Image
-            source={photoBG}
-            style={styles.backgroundImage}
-            resizeMode='cover'
-        />
+            <View
+                style={{
+                    flex: 1,
+                    position: 'absolute',
+                    height: '100%',
+                    width: '100%'
+                }}>
+            <Image
+                source={photoBG}
+                style={styles.backgroundImage}
+                resizeMode='cover'
+            />
+        </View>
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}
@@ -56,7 +64,7 @@ function RegistrationScreen() {
                     </TouchableOpacity>
                 </View>
             </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+                </KeyboardAvoidingView>
     </>   
     )
 };
@@ -77,8 +85,6 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         width: '100%',
-        height: '100%',
-        position: 'absolute'
     },
     reg__avatar: {
         position: 'absolute',
