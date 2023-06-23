@@ -11,8 +11,34 @@ import {
 } from 'react-native';
 import addImg from '../images/add.jpg';
 import Background from '../components/background/Background';
+import { useState } from 'react';
 
 function RegistrationScreen() {
+
+    const [login, setLogin] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    function onRegistration() {
+        alert(`
+        Login: ${login},
+        Email: ${email},
+        Password: ${password}
+        `)
+    };
+
+    function onView() {
+        alert(`этот клик должен показать пароль`)
+    };
+
+        function onRedirectToLogin() {
+        alert(`этот клик должен перенаправить на скрин логина`)
+    };
+
+            function onAddAvatar() {
+        alert(`этот клик должен добавлять фото`)
+    };
+    
     return (
     <>
         <Background/>    
@@ -23,32 +49,56 @@ function RegistrationScreen() {
         >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.reg}>
-                    <Image style={styles.reg__avatar}/>
-                    <Image source={addImg} style={styles.reg__add} />
+                    <Image style={styles.reg__avatar} />
+                        <TouchableOpacity
+                            onPress={onAddAvatar}
+                        >
+                            <Image source={addImg} style={styles.reg__add} />
+                        </TouchableOpacity>
+                    
                     <Text style={styles.reg__title}>Реєстрація</Text>
                     <TextInput
+                        value={login}
+                        onChangeText={setLogin}
                         style={styles.reg__inputLog}
                         placeholder='Логін'
                         placeholderTextColor='#BDBDBD'
                     />
                     <TextInput
+                        value={email}
+                        onChangeText={setEmail}
                         style={styles.reg__inputMail}
                         placeholder='Адреса електронної пошти'
                         placeholderTextColor='#BDBDBD'
                     />
                     <TextInput
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry
                         style={styles.reg__inputPass}
                         placeholder='Пароль'
                         placeholderTextColor='#BDBDBD'
                     />
                     <TouchableOpacity style={styles.reg__viewLink}>
-                        <Text style={styles.reg__viewLinkText}>Показати</Text>
+                            <Text
+                                onPress={onView}
+                                style={styles.reg__viewLinkText}
+                            >Показати
+                            </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.reg__btn}>
-                        <Text style={styles.reg__btnText}>Реєстрація</Text>
+                            <Text
+                                style={styles.reg__btnText}
+                                onPress={onRegistration}
+                            >Реєстрація
+                            </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.reg__loginlink}>
-                        <Text style={styles.reg__linkText}>Вже є акаунт? Увійти</Text>
+                            <Text
+                                onPress={onRedirectToLogin}
+                                style={styles.reg__linkText}
+                            >Вже є акаунт? Увійти
+                            </Text>
                     </TouchableOpacity>
                 </View>
             </TouchableWithoutFeedback>
