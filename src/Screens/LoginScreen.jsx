@@ -11,24 +11,12 @@ import {
 
 } from 'react-native';
 import delImg from '../images/del.jpg';
-import photoBG from '../images/photoBG.jpg';
+import Background from '../components/background/Background';
 
 function LoginScrin() {
     return (
         <>  
-            <View
-                style={{
-                    flex: 1,
-                    position: 'absolute',
-                    height: '100%',
-                    width: '100%'
-            }}>
-                <Image
-                    source={photoBG}
-                    style={styles.backgroundImage}
-                    resizeMode='cover'
-                />
-            </View>    
+            <Background/>    
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={styles.container}
@@ -78,9 +66,6 @@ const styles = StyleSheet.create({
         marginTop: 323,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
-    },
-    backgroundImage: {
-        width: '100%',
     },
     log__avatar: {
         position: 'absolute',

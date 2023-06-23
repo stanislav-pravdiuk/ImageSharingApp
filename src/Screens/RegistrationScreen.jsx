@@ -10,24 +10,12 @@ import {
     Keyboard,
 } from 'react-native';
 import addImg from '../images/add.jpg';
-import photoBG from '../images/photoBG.jpg';
+import Background from '../components/background/Background';
 
 function RegistrationScreen() {
     return (
     <>
-            <View
-                style={{
-                    flex: 1,
-                    position: 'absolute',
-                    height: '100%',
-                    width: '100%'
-                }}>
-            <Image
-                source={photoBG}
-                style={styles.backgroundImage}
-                resizeMode='cover'
-            />
-        </View>
+        <Background/>    
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}
@@ -64,7 +52,7 @@ function RegistrationScreen() {
                     </TouchableOpacity>
                 </View>
             </TouchableWithoutFeedback>
-                </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
     </>   
     )
 };
@@ -82,9 +70,6 @@ const styles = StyleSheet.create({
         marginTop: 263,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
-    },
-    backgroundImage: {
-        width: '100%',
     },
     reg__avatar: {
         position: 'absolute',
