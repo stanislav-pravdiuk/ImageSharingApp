@@ -12,8 +12,33 @@ import {
 } from 'react-native';
 import delImg from '../images/del.jpg';
 import Background from '../components/background/Background';
+import { useState } from 'react';
 
 function LoginScrin() {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    
+    function onLogin() { 
+        console.log(`this is state: 
+        Email => ${email},
+        Password => ${password}`)
+    };
+
+    function onView() {
+        setShowPassword(!showPassword);
+        console.log(`этот клик прячет или показывает пароль`)
+    };
+
+    function onRedirectToRegister() {
+        console.log(`этот клик должен перенаправить на скрин регистрации`)
+    };
+
+    function onDelAvatar() {
+        console.log(`этот клик должен удалять фото`)
+    };
+
     return (
         <>  
             <Background/>    
@@ -25,25 +50,45 @@ function LoginScrin() {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>                        
                     <View style={styles.log}>                    
                         <Image style={styles.log__avatar} />
-                        <Image source={delImg} style={styles.log__add} />
+                        <TouchableOpacity
+                            onPress={onDelAvatar}
+                        >
+                            <Image source={delImg} style={styles.log__add} />
+                        </TouchableOpacity>
+                        
                         <Text style={styles.log__title}>Увійти</Text>
                         <TextInput
+                            value={email}
+                            onChangeText={setEmail}
                             style={styles.log__inputMail}
                             placeholder='Адреса електронної пошти'
                             placeholderTextColor='#BDBDBD'
                         />
                         <TextInput
+                            value={password}
+                            onChangeText={setPassword}
+                            secureTextEntry={!showPassword}
                             style={styles.log__inputPass}
                             placeholder='Пароль'
                             placeholderTextColor='#BDBDBD'
                         />
                         <TouchableOpacity style={styles.log__viewLink}>
-                            <Text style={styles.log__viewLinkText}>Показати</Text>
+                            <Text
+                                onPress={onView}
+                                style={styles.log__viewLinkText}
+                            >{showPassword
+                                    ? 'Приховати'
+                                    : 'Показати'}
+                            </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.log__btn}>
-                            <Text style={styles.log__btnText}>Увійти</Text>
+                            <Text
+                                onPress={onLogin}
+                                style={styles.log__btnText}>Увійти</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.log__loginlink}>
+                        <TouchableOpacity
+                            onPress={onRedirectToRegister}
+                            style={styles.log__loginlink}>
                             <Text style={styles.log__linkText}>Немає акаунту? Зареєструватися</Text>
                         </TouchableOpacity>
                     </View>

@@ -18,25 +18,26 @@ function RegistrationScreen() {
     const [login, setLogin] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     function onRegistration() {
-        alert(`
-        Login: ${login},
-        Email: ${email},
-        Password: ${password}
-        `)
+        console.log(`this is state:
+        Login => ${login},
+        Email => ${email},
+        Password => ${password}`)
     };
 
     function onView() {
-        alert(`этот клик должен показать пароль`)
+        setShowPassword(!showPassword);
+        console.log(`этот клик прячет или показывает пароль`)
     };
 
         function onRedirectToLogin() {
-        alert(`этот клик должен перенаправить на скрин логина`)
+        console.log(`этот клик должен перенаправить на скрин логина`)
     };
 
             function onAddAvatar() {
-        alert(`этот клик должен добавлять фото`)
+        console.log(`этот клик должен добавлять фото`)
     };
     
     return (
@@ -74,7 +75,7 @@ function RegistrationScreen() {
                     <TextInput
                         value={password}
                         onChangeText={setPassword}
-                        secureTextEntry
+                        secureTextEntry={!showPassword}
                         style={styles.reg__inputPass}
                         placeholder='Пароль'
                         placeholderTextColor='#BDBDBD'
@@ -82,8 +83,10 @@ function RegistrationScreen() {
                     <TouchableOpacity style={styles.reg__viewLink}>
                             <Text
                                 onPress={onView}
-                                style={styles.reg__viewLinkText}
-                            >Показати
+                                style={styles.log__viewLinkText}
+                            >{showPassword
+                                    ? 'Приховати'
+                                    : 'Показати'}
                             </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.reg__btn}>
