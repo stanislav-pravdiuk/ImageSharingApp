@@ -5,27 +5,49 @@ import mapIcon from '../images/map-pin.jpg';
 import trashIcon from '../images/trash.jpg';
 
 function CreatePostsScreen() {
+
+    function onBack() {
+        console.log('клик будет возвращать назад');
+    };
+
+    function onCamera() { 
+        console.log('клик будет открывать камеру');
+    };
+
+    function onPublik() { 
+        console.log('клик будет делать пост запрос, скорее всего)))')
+    };
+
+    function onDelete() { 
+        console.log('клик будет отменять публикацию')
+    };
+
     return (
         <View style={styles.createPosts}>
             <View style={styles.createPosts__container}>
-                <View style={styles.createPosts__imageContainer}>
+                <TouchableOpacity
+                    onPress={onBack}
+                    style={styles.createPosts__imageContainer}
+                >
                     <Image
                         source={left}
                         style={styles.createPosts__btn}
                     />
-                </View >
+                </TouchableOpacity>
                 <View style={styles.createPosts__titleContainer}>
                     <Text style={styles.createPosts__title}>Створити публікацію</Text>
                 </View>
             </View>
             <View style={styles.createPosts__form}>
                 <View style={styles.createPosts__download}>
-                    <View style={styles.createPosts__containerImg}>
+                    <TouchableOpacity
+                        onPress={onCamera}
+                        style={styles.createPosts__containerImg}>
                         <Image style={styles.createPosts__img} />
-                        <Image
-                            source={cameraIcon}
-                            style={styles.createPosts__imgBtn} />
-                    </View>
+                            <Image
+                                source={cameraIcon}
+                                style={styles.createPosts__imgBtn} />
+                    </TouchableOpacity>
                     <Text style={styles.createPosts__downloadText}>Завантажте фото</Text>
                 </View>
                 <View style={styles.createPosts__titlePost}>
@@ -35,7 +57,6 @@ function CreatePostsScreen() {
                     style={styles.createPosts__titleInput}
                     placeholder='Назва...'
                     placeholderTextColor='#BDBDBD'
-                    // style={{ fontSize: 16 }}
                     />
                 </View>
                 <View style={styles.createPosts__naviPost}>
@@ -49,17 +70,19 @@ function CreatePostsScreen() {
                     style={styles.createPosts__naviInput}
                     placeholder='Місцевість'
                     placeholderTextColor='#BDBDBD'
-                    // style={{ fontSize: 16 }}
                     />
                 </View>
-                <TouchableOpacity style={styles.createPosts__btnPublic}>
+                <TouchableOpacity
+                    onPress={onPublik}
+                    style={styles.createPosts__btnPublic}>
                     <Text
                         // onPress={onLogin}
                         style={styles.createPosts__btnText}>Опублікувати</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.createPosts__tabBar}>
-                <TouchableOpacity style={styles.createPosts__btnTrash}>
+                <TouchableOpacity onPress={onDelete}
+                    style={styles.createPosts__btnTrash}>
                     <Image source={trashIcon} />
                 </TouchableOpacity>
             </View>
