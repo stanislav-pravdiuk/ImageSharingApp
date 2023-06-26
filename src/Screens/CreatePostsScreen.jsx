@@ -35,7 +35,7 @@ function CreatePostsScreen() {
                     style={styles.createPosts__titleInput}
                     placeholder='Назва...'
                     placeholderTextColor='#BDBDBD'
-                    style={{ fontSize: 16 }}
+                    // style={{ fontSize: 16 }}
                     />
                 </View>
                 <View style={styles.createPosts__naviPost}>
@@ -49,7 +49,7 @@ function CreatePostsScreen() {
                     style={styles.createPosts__naviInput}
                     placeholder='Місцевість'
                     placeholderTextColor='#BDBDBD'
-                    style={{ fontSize: 16 }}
+                    // style={{ fontSize: 16 }}
                     />
                 </View>
                 <TouchableOpacity style={styles.createPosts__btnPublic}>
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     createPosts__titleInput: {
         width: 355,
         height: 50,
+        fontSize: 16,
     },
         createPosts__naviPost: {
         borderBottomColor: '#E5E5E5',
@@ -147,6 +148,7 @@ const styles = StyleSheet.create({
     createPosts__naviInput: {
         width: 355,
         height: 50,
+        fontSize: 16,
     },
     createPosts__mapIcon: {
         width: 24,
