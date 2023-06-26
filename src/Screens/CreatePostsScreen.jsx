@@ -105,13 +105,12 @@ const styles = StyleSheet.create({
     },
     createPosts__form: {
         marginTop: 32,
+        alignItems: 'center',
     },
     createPosts__download: {
-        width: 343,
         height: 267,
     },
     createPosts__containerImg: {
-        width: 343,
         height: 240,
         borderRadius: 8,
         backgroundColor: '#E8E8E8',
@@ -122,7 +121,9 @@ const styles = StyleSheet.create({
         marginTop: 90,
 
     },
-    createPosts__img:{},
+    createPosts__img: {
+        width: 343,
+    },
     createPosts__downloadText: {
         marginTop: 8,
         fontSize: 16,
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
         marginTop: 32,
     },
     createPosts__titleInput: {
-        width: 355,
+        width: 343,
         height: 50,
         fontSize: 16,
     },
@@ -143,10 +144,10 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.5,
         marginTop: 16,
         alignItems: 'center',
-        flexDirection: 'row',
+            flexDirection: 'row',
+        width: 343,
     },
     createPosts__naviInput: {
-        width: 355,
         height: 50,
         fontSize: 16,
     },
