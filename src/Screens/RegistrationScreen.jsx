@@ -9,7 +9,6 @@ import {
     KeyboardAvoidingView,
     Keyboard,
 } from 'react-native';
-import ImagePicker from 'react-native-image-crop-picker';
 import addImg from '../images/add.jpg';
 import Background from '../components/background/Background';
 import { useState } from 'react';
@@ -21,13 +20,17 @@ function RegistrationScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [avatar, setAvatar] = useState(null);
 
     function onRegistration() {
         console.log(`this is state:
         Login => ${login},
         Email => ${email},
-        Password => ${password}`)
+        Password => ${password}`);
+
+        setEmail('');
+        setLogin('');
+        setPassword('');
+        setShowPassword('');
     };
 
     function onView() {
@@ -40,18 +43,7 @@ function RegistrationScreen() {
     };
 
     function onAddAvatar() {
-        ImagePicker.openPicker({
-            width: 300,
-            height: 400,
-            cropping: true
-        })
-        .then((image) => {
-            console.log('Выбрано изображение: ', image.path);
-            setAvatar(image.path);
-        })
-        .catch((error) => {
-        console.log('Ошибка при выборе изображения: ', error);
-        });
+        console.log('этот клик должен добавлять фото' )
     };
     
     return (
@@ -65,10 +57,8 @@ function RegistrationScreen() {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.reg}>
                         <Image
-                            source={avatar
-                                ? { uri: avatar }
-                                : null}
-                            style={styles.reg__avatar} />
+                            style={styles.reg__avatar}
+                        />
                         <TouchableOpacity
                             onPress={onAddAvatar}
                         >

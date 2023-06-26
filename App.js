@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import RegistrationScreen from './src/Screens/RegistrationScreen';
 import LoginScrin from './src/Screens/LoginScreen';
 import PostsScreen from './src/Screens/PostsScreen.jsx'
+import CreatePostsScreen from './src/Screens/CreatePostsScreen';
 
 export default function App() {
 
@@ -19,9 +20,10 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <RegistrationScreen />
+      {/* <RegistrationScreen /> */}
       {/* <LoginScrin /> */}
       {/* <PostsScreen />  */}
+      <CreatePostsScreen />
     </View>
   );
 }

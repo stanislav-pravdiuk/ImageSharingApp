@@ -23,7 +23,11 @@ function LoginScrin() {
     function onLogin() { 
         console.log(`this is state: 
         Email => ${email},
-        Password => ${password}`)
+        Password => ${password}`);
+
+        setEmail('');
+        setPassword('');
+        setPassword('');
     };
 
     function onView() {
