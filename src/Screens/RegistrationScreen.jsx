@@ -56,14 +56,14 @@ function RegistrationScreen() {
         >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.reg}>
-                        <Image
-                            style={styles.reg__avatar}
-                        />
-                        <TouchableOpacity
-                            onPress={onAddAvatar}
-                        >
-                            <Image source={addImg} style={styles.reg__add} />
-                        </TouchableOpacity>
+                    <Image
+                        style={styles.reg__avatar}
+                    />
+                    <TouchableOpacity
+                        onPress={onAddAvatar}
+                    >
+                        <Image source={addImg} style={styles.reg__add} />
+                    </TouchableOpacity>
                     
                     <Text style={styles.reg__title}>Реєстрація</Text>
                     <TextInput

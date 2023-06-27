@@ -8,13 +8,18 @@ import {
 } from 'react-native';
 import left from '../images/arrow-left.jpg';
 import avatar from '../images/avatar.jpg';
-import user from '../images/user.jpg'
+import user from '../images/user.jpg';
+import send from '../images/send.jpg'
 
 
 function CommentsScreen() {
 
     function onBack() {
         console.log('клик будет возвращать назад');
+    };
+
+    function onPost() { 
+        console.log('клик постит публикацию и какойто пост запрос наверное делает)))))')
     };
 
     return (
@@ -96,7 +101,16 @@ function CommentsScreen() {
                     style={styles.commentsScreen__input}
                     placeholder='Коментувати...'
                     placeholderTextColor='#BDBDBD'
-                />
+                    />
+                <TouchableOpacity
+                    onPress={onPost}
+                    style={styles.commentsScreen__btnSendContainer}
+                >
+                        <Image
+                            style={styles.commentsScreen__btnSend}
+                            source={send}
+                        />
+                    </TouchableOpacity>
             </View>
         </View>
     );
@@ -141,11 +155,9 @@ const styles = StyleSheet.create({
     commentsScreen__form: {
         marginTop: 32,
         alignItems: 'center',
-        // borderWidth:1
     },
     commentsScreen__comments: {
         height: 240,
-        // borderWidth:1
     },
     commentsScreen__containerImg: {
         height: 240,
@@ -156,19 +168,15 @@ const styles = StyleSheet.create({
         width: 343,
     },
     commentsScreen__commentsBox: {
-        // borderWidth: 1,
         marginTop: 32,
         width: 343,
         maxHeighteight: 323,
-        
     },
         commentsScreen__comment: {
-        // borderWidth: 1,
         flexDirection: 'row',
         marginBottom: 24,
     },
     commentsScreen__commentEven: {
-        // borderWidth: 1,
         marginBottom: 24,
         flexDirection: 'row-reverse',
     },
@@ -192,7 +200,6 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 6,
         borderBottomRightRadius: 6,
         borderTopRightRadius: 6,
-        // borderWidth: 1,
         backgroundColor: '#00000008',
     },
         commentsScreen__textBoxEven: {
@@ -205,38 +212,29 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 6,
         borderBottomRightRadius: 6,
         borderTopLeftRadius: 6,
-        // borderWidth: 1,
         backgroundColor: '#00000008',
     },
     commentsScreen__commentText: {
         fontSize: 13,
         color: '#212121',
-        // borderWidth:1
     },
     commentsScreen__commenDate: {
         fontSize: 10,
         color: '#BDBDBD',
         marginTop: 8,
         marginLeft: 'auto',
-        // borderWidth:1
     },
         commentsScreen__commenDateEven: {
         fontSize: 10,
         color: '#BDBDBD',
         marginTop: 8,
         marginRight: 'auto',
-        // borderWidth:1
     },
     commentsScreen__tabBar: {
-        // borderColor: '#E5E5E5',
-        // borderTopWidth: 0.5,
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'row',
-        paddingTop: 9,
-        paddingBottom: 22,
-        // borderWidth: 1,
+        paddingTop: 16,
         position: 'absolute',
         bottom: 0,
     },
@@ -247,6 +245,19 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 25,
         padding: 16,
+        marginTop: 17,
+    },
+    commentsScreen__btnSendContainer: {
+        top: -42,
+        left: 145,
+        width: 34,
+        height: 34,
+        overflow: 'hidden',
+        borderRadius: 100,
+    },
+    commentsScreen__btnSend: {
+        width: 34,
+        height: 34,
     },
 });
 
