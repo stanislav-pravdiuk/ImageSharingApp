@@ -12,6 +12,7 @@ import {
 import addImg from '../images/add.jpg';
 import Background from '../components/background/Background';
 import { useState } from 'react';
+import ButtonAddAvatar from '../components/buttons/ButtonAddAvatar';
 
 
 function RegistrationScreen() {
@@ -42,9 +43,9 @@ function RegistrationScreen() {
         console.log(`этот клик должен перенаправить на скрин логина`)
     };
 
-    function onAddAvatar() {
-        console.log('этот клик должен добавлять фото' )
-    };
+    // function onAddAvatar() {
+    //     console.log('этот клик должен добавлять фото' )
+    // };
     
     return (
     <>
@@ -59,12 +60,14 @@ function RegistrationScreen() {
                     <Image
                         style={styles.reg__avatar}
                     />
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         onPress={onAddAvatar}
                     >
                         <Image source={addImg} style={styles.reg__add} />
-                    </TouchableOpacity>
-                    
+                    </TouchableOpacity> */}
+                    <View style={styles.reg__add}>
+                        <ButtonAddAvatar/>
+                    </View>
                     <Text style={styles.reg__title}>Реєстрація</Text>
                     <TextInput
                         value={login}

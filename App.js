@@ -22,12 +22,12 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      {/* <RegistrationScreen /> */}
+      <RegistrationScreen />
       {/* <LoginScrin /> */}
       {/* <PostsScreen />  */}
       {/* <CreatePostsScreen /> */}
       {/* <CommentsScreen /> */}
-      <ProfileScreen />
+      {/* <ProfileScreen /> */}
     </View>
   );
 }

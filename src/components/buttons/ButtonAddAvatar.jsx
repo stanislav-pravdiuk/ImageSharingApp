@@ -11,11 +11,14 @@ function ButtonAddAvatar() {
     };
 
     return (
-                <TouchableOpacity onPress={onAddAvatar}>
-                    <Image
-                        source={addAvatar}
-                    />
-                </TouchableOpacity>
+        <TouchableOpacity
+            style={{ overflow: 'hidden', borderRadius: 100 }}
+            onPress={onAddAvatar}>
+            <Image
+                style={{ width: 25, height: 25}}
+                source={addAvatar}
+            />
+        </TouchableOpacity>
     );
 };
 
