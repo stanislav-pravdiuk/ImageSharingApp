@@ -76,7 +76,7 @@ function ProfileScreen() {
                     <View style={styles.profile__image}>
                         <Image source={sunset}/>
                     </View>
-                    <Text style={styles.profile__text}>Ліс</Text>
+                    <Text style={styles.profile__text}>Захід на чорному морі</Text>
                     <View style={styles.profile__stat}>
                         <TouchableOpacity onPress={onComment}>
                             <Image
@@ -102,7 +102,7 @@ function ProfileScreen() {
                     <View style={styles.profile__image}>
                         <Image source={house}/>
                     </View>
-                    <Text style={styles.profile__text}>Ліс</Text>
+                    <Text style={styles.profile__text}>Старий будиночок у Венеції</Text>
                     <View style={styles.profile__stat}>
                         <TouchableOpacity onPress={onComment}>
                             <Image

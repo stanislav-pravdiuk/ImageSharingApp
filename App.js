@@ -24,10 +24,10 @@ export default function App() {
       <StatusBar style="auto" />
       {/* <RegistrationScreen /> */}
       {/* <LoginScrin /> */}
-      {/* <PostsScreen />  */}
+      <PostsScreen /> 
       {/* <CreatePostsScreen /> */}
       {/* <CommentsScreen /> */}
-      <ProfileScreen />
+      {/* <ProfileScreen /> */}
     </View>
   );
 }

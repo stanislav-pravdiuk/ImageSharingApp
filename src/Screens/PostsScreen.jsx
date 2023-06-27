@@ -5,7 +5,7 @@ import {
     Image,
 } from 'react-native';
 import user from '../images/user.jpg';
-import TabBar from '../components/TabBar/TabBar';
+import TabBar from '../components/tabBar/TabBar';
 import ButtonLogOut from '../components/buttons/ButtonLogOut';
 
 function PostScreen() {
