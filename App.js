@@ -31,21 +31,20 @@ export default function App() {
       <MainStack.Navigator initialRouteName="LoginScreen">
         <MainStack.Screen
           name="RegistrationScreen"
-          component={() => <RegistrationScreen />}
           options={{
             headerShown: false,
           }}
-        />
+        >{() => <RegistrationScreen />}
+        </MainStack.Screen>
         <MainStack.Screen
           name="LoginScrin"
-          component={() => <LoginScrin />}
           options={{
             headerShown: false,
           }}
-        />
+        >{() => <LoginScrin />}
+        </MainStack.Screen>
         <MainStack.Screen
           name="Home"
-          component={() => <PostsScreen/>}
           options={{
             title: "Публікації",
             headerRight: () => <ButtonLogOut />,
@@ -64,18 +63,22 @@ export default function App() {
             },
             headerLeft: null,
           }}
-        />
+          >{() => <PostsScreen/>}
+          </MainStack.Screen>
         <MainStack.Screen
           name="CreatePostsScreen"
-          component={() => <CreatePostsScreen />} />
+        >{() => <CreatePostsScreen />}
+        </MainStack.Screen>
         <MainStack.Screen
           name="CommentsScreen"
-          component={() => <CommentsScreen />} />
+        >{() => <CommentsScreen />}
+        </MainStack.Screen>
         <MainStack.Screen
-          name="ProfileScreen"
-          component={() => <ProfileScreen />} />
+          name="ProfileScreen">
+          {() => <ProfileScreen />}
+        </MainStack.Screen>
       </MainStack.Navigator>
-    </NavigationContainer>  
+    </NavigationContainer>
   );
 }
 
