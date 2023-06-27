@@ -1,3 +1,4 @@
+import React from "react";
 import {
     TextInput,
     StyleSheet,
@@ -9,14 +10,15 @@ import {
     KeyboardAvoidingView,
     Keyboard,
 } from 'react-native';
-import addImg from '../images/add.jpg';
 import Background from '../components/background/Background';
 import { useState } from 'react';
 import ButtonAddAvatar from '../components/buttons/ButtonAddAvatar';
+import { useNavigation } from "@react-navigation/native";
 
 
 function RegistrationScreen() {
 
+    const navigation = useNavigation();
     const [login, setLogin] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -40,7 +42,7 @@ function RegistrationScreen() {
     };
 
     function onRedirectToLogin() {
-        console.log(`этот клик должен перенаправить на скрин логина`)
+        navigation.navigate("LoginScrin")
     };
 
     // function onAddAvatar() {

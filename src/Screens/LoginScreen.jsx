@@ -13,9 +13,11 @@ import {
 import delImg from '../images/del.jpg';
 import Background from '../components/background/Background';
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 function LoginScrin() {
 
+    const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +38,7 @@ function LoginScrin() {
     };
 
     function onRedirectToRegister() {
-        console.log(`этот клик должен перенаправить на скрин регистрации`)
+        navigation.navigate("RegistrationScreen")
     };
 
     function onDelAvatar() {

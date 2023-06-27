@@ -11,6 +11,7 @@ import PostsScreen from './src/Screens/PostsScreen.jsx'
 import CreatePostsScreen from './src/Screens/CreatePostsScreen';
 import CommentsScreen from './src/Screens/CommentsScreen';
 import ProfileScreen from './src/Screens/ProfileScreen';
+import ButtonLogOut from './src/components/buttons/ButtonLogOut';
 
 const MainStack = createStackNavigator();
 
@@ -37,7 +38,23 @@ export default function App() {
         <MainStack.Screen
           name="Home"
           component={() => <PostsScreen/>}
-          options={{ title: "Публікації" }}
+          options={{
+            title: "Публікації",
+            headerRight: () => <ButtonLogOut />,
+            headerTitleStyle: {
+            fontWeight: '500',
+            fontSize: 17,
+            color: '#212121',
+            },
+            headerTitleAlign: 'center',
+            headerRightContainerStyle: {
+              marginRight: 10,
+            },
+            headerStyle: {
+              borderBottomColor: '#E5E5E5',
+              borderBottomWidth: 0.5,
+            },
+          }}
         />
         <MainStack.Screen
           name="CreatePostsScreen"
