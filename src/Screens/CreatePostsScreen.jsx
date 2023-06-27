@@ -1,4 +1,11 @@
-import { TextInput, StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native';
+import {
+    TextInput,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TouchableOpacity,
+} from 'react-native';
 import left from '../images/arrow-left.jpg';
 import cameraIcon from '../images/camera.jpg';
 import mapIcon from '../images/map-pin.jpg';

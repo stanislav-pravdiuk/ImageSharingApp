@@ -5,6 +5,7 @@ import RegistrationScreen from './src/Screens/RegistrationScreen';
 import LoginScrin from './src/Screens/LoginScreen';
 import PostsScreen from './src/Screens/PostsScreen.jsx'
 import CreatePostsScreen from './src/Screens/CreatePostsScreen';
+import CommentsScreen from './src/Screens/CommentsScreen';
 
 export default function App() {
 
@@ -23,7 +24,8 @@ export default function App() {
       {/* <RegistrationScreen /> */}
       {/* <LoginScrin /> */}
       {/* <PostsScreen />  */}
-      <CreatePostsScreen />
+      {/* <CreatePostsScreen /> */}
+      <CommentsScreen />
     </View>
   );
 }
