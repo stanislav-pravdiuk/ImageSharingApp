@@ -16,6 +16,7 @@ import navi from '../images/map-pin.jpg';
 import sunset from '../images/sunset.jpg';
 import house from '../images/house.jpg';
 import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar';
+import TabBarAlt from '../components/tabBar/TabBarAlt';
 
 function ProfileScreen() {
 
@@ -125,6 +126,7 @@ function ProfileScreen() {
                     </View>
                 </View>
             </ScrollView>
+            <TabBarAlt />
         </>   
     )
 };
@@ -166,8 +168,9 @@ const styles = StyleSheet.create({
     },
     profile__postsContainer: {
         position: 'absolute',
-        top: 307,
-        height: 630,
+        top: 286,
+        height: 556,
+        // borderWidth: 1
         // width: '100%',
 
     },
