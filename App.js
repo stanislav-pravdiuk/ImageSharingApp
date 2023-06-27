@@ -28,13 +28,21 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <MainStack.Navigator initialRouteName="Home">
+      <MainStack.Navigator initialRouteName="LoginScreen">
         <MainStack.Screen
           name="RegistrationScreen"
-          component={() => <RegistrationScreen />} />
+          component={() => <RegistrationScreen />}
+          options={{
+            headerShown: false,
+          }}
+        />
         <MainStack.Screen
           name="LoginScrin"
-          component={() => <LoginScrin />} />
+          component={() => <LoginScrin />}
+          options={{
+            headerShown: false,
+          }}
+        />
         <MainStack.Screen
           name="Home"
           component={() => <PostsScreen/>}
@@ -54,6 +62,7 @@ export default function App() {
               borderBottomColor: '#E5E5E5',
               borderBottomWidth: 0.5,
             },
+            headerLeft: null,
           }}
         />
         <MainStack.Screen

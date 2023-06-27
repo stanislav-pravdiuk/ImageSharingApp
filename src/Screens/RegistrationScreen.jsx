@@ -34,6 +34,7 @@ function RegistrationScreen() {
         setLogin('');
         setPassword('');
         setShowPassword('');
+        navigation.navigate("Home")
     };
 
     function onView() {
@@ -44,10 +45,6 @@ function RegistrationScreen() {
     function onRedirectToLogin() {
         navigation.navigate("LoginScrin")
     };
-
-    // function onAddAvatar() {
-    //     console.log('этот клик должен добавлять фото' )
-    // };
     
     return (
     <>
@@ -62,11 +59,6 @@ function RegistrationScreen() {
                     <Image
                         style={styles.reg__avatar}
                     />
-                    {/* <TouchableOpacity
-                        onPress={onAddAvatar}
-                    >
-                        <Image source={addImg} style={styles.reg__add} />
-                    </TouchableOpacity> */}
                     <View style={styles.reg__add}>
                         <ButtonAddAvatar/>
                     </View>

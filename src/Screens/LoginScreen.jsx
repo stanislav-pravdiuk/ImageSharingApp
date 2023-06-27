@@ -30,6 +30,7 @@ function LoginScrin() {
         setEmail('');
         setPassword('');
         setPassword('');
+        navigation.navigate("Home")
     };
 
     function onView() {
