@@ -1,13 +1,10 @@
 import {
-    TextInput,
     StyleSheet,
     Text,
     View,
     Image,
     TouchableOpacity,
-    TouchableWithoutFeedback,
-    KeyboardAvoidingView,
-    Keyboard,
+    ScrollView,
 } from 'react-native';
 import Background from '../components/background/Background';
 import userBig from '../images/userBig.jpg'
@@ -22,14 +19,22 @@ import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar';
 
 function ProfileScreen() {
 
+    function onComment() { 
+        console.log('откроет комменты')
+    };
+
+    function onLike() { 
+        console.log('добавит лайк')
+    };
+
     return (
         <>
             <Background/>
-                <View style={styles.profile}>
-                    <Image
-                        source={userBig}
-                        style={styles.profile__avatar}
-                    />
+            <View style={styles.profile}>
+                <Image
+                    source={userBig}
+                    style={styles.profile__avatar}
+                />
                 <View style={styles.profile__btnDel}>
                     <ButtonDelAvatar />
                 </View>
@@ -37,21 +42,27 @@ function ProfileScreen() {
                     <ButtonLogOut />
                 </View>
                     <Text style={styles.profile__title}>Natali Romanova</Text>
-            </View>
-            <View style={styles.profile__postsContainer}>
+                </View>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={styles.profile__postsContainer}>
                 <View style={styles.profile__postBox}>
                     <View style={styles.profile__image}>
                         <Image source={forest}/>
                     </View>
                     <Text style={styles.profile__text}>Ліс</Text>
                     <View style={styles.profile__stat}>
-                        <Image
-                            style={styles.profile__Ico}
-                            source={message} />
+                        <TouchableOpacity onPress={onComment}>
+                            <Image
+                                style={styles.profile__Ico}
+                                source={message} />
+                        </TouchableOpacity>                            
                         <Text style={styles.profile__Qty}>8</Text>
-                        <Image
-                            style={styles.profile__Ico}
-                            source={like} />
+                        <TouchableOpacity onPress={onLike}>
+                            <Image
+                                style={styles.profile__Ico}
+                                source={like} />
+                        </TouchableOpacity>
                         <Text style={styles.profile__Qty}>153</Text>
                         <TouchableOpacity style={styles.profile__navi}>
                             <Image
@@ -67,13 +78,17 @@ function ProfileScreen() {
                     </View>
                     <Text style={styles.profile__text}>Ліс</Text>
                     <View style={styles.profile__stat}>
-                        <Image
-                            style={styles.profile__Ico}
-                            source={message} />
+                        <TouchableOpacity onPress={onComment}>
+                            <Image
+                                style={styles.profile__Ico}
+                                source={message} />
+                        </TouchableOpacity>                            
                         <Text style={styles.profile__Qty}>3</Text>
-                        <Image
-                            style={styles.profile__Ico}
-                            source={like} />
+                        <TouchableOpacity onPress={onLike}>
+                            <Image
+                                style={styles.profile__Ico}
+                                source={like} />
+                        </TouchableOpacity>
                         <Text style={styles.profile__Qty}>200</Text>
                         <TouchableOpacity style={styles.profile__navi}>
                             <Image
@@ -89,23 +104,27 @@ function ProfileScreen() {
                     </View>
                     <Text style={styles.profile__text}>Ліс</Text>
                     <View style={styles.profile__stat}>
-                        <Image
-                            style={styles.profile__Ico}
-                            source={message} />
-                        <Text style={styles.profile__Qty}>3</Text>
-                        <Image
-                            style={styles.profile__Ico}
-                            source={like} />
+                        <TouchableOpacity onPress={onComment}>
+                            <Image
+                                style={styles.profile__Ico}
+                                source={message} />
+                        </TouchableOpacity>                            
+                        <Text style={styles.profile__Qty}>50</Text>
+                        <TouchableOpacity onPress={onLike}>
+                            <Image
+                                style={styles.profile__Ico}
+                                source={like} />
+                        </TouchableOpacity>
                         <Text style={styles.profile__Qty}>200</Text>
                         <TouchableOpacity style={styles.profile__navi}>
                             <Image
                                 tyle={styles.profile__Ico}
                                 source={navi} />
-                            <Text style={styles.profile__textNavi}>Ukraine</Text>
+                            <Text style={styles.profile__textNavi}>Italy</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
+            </ScrollView>
         </>   
     )
 };
@@ -148,6 +167,9 @@ const styles = StyleSheet.create({
     profile__postsContainer: {
         position: 'absolute',
         top: 307,
+        height: 630,
+        // width: '100%',
+
     },
     profile__postBox: {
         width: 343,
