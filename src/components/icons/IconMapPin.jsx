@@ -1,9 +1,9 @@
 import { Feather } from '@expo/vector-icons';
 
-function MapPin() { 
+function IconMapPin() { 
     return (
         <Feather name="map-pin" size={24} color="#BDBDBD" />
     );    
 };
 
-export default MapPin;
+export default IconMapPin;

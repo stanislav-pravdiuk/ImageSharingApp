@@ -1,7 +1,7 @@
 import { AntDesign } from '@expo/vector-icons';
 import { StyleSheet, View } from 'react-native';
 
-function Camera() {
+function IconCamera() {
     return (
         <View style={styles.iconContainer}>
             <AntDesign name="camera" size={24} color="#BDBDBD" />
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Camera;
+export default IconCamera;

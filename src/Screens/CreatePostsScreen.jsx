@@ -11,8 +11,9 @@ import {
 } from 'react-native';
 import cameraIcon from '../images/camera.jpg';
 import trashIcon from '../images/trash.jpg';
-import MapPin from '../components/icons/MapPin';
-import Camera from '../components/icons/Camera';
+import MapPin from '../components/icons/IconMapPin';
+import Camera from '../components/icons/IconCamera';
+import ButtonTrash from '../components/buttons/ButtonTrash';
 
     function CreatePostsScreen() {
 
@@ -22,10 +23,6 @@ import Camera from '../components/icons/Camera';
 
         function onPublik() { 
             console.log('клик будет делать пост запрос, скорее всего)))')
-        };
-
-        function onDelete() { 
-            console.log('клик будет отменять публикацию')
         };
 
         return (
@@ -78,10 +75,11 @@ import Camera from '../components/icons/Camera';
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.createPosts__tabBar}>
-                                <TouchableOpacity onPress={onDelete}
+                                {/* <TouchableOpacity onPress={onDelete}
                                     style={styles.createPosts__btnTrash}>
                                     <Image source={trashIcon} />
-                                </TouchableOpacity>
+                                </TouchableOpacity> */}
+                                <ButtonTrash/>
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
