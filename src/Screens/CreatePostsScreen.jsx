@@ -9,8 +9,6 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
 } from 'react-native';
-import cameraIcon from '../images/camera.jpg';
-import trashIcon from '../images/trash.jpg';
 import MapPin from '../components/icons/IconMapPin';
 import Camera from '../components/icons/IconCamera';
 import ButtonTrash from '../components/buttons/ButtonTrash';
@@ -33,16 +31,19 @@ import ButtonTrash from '../components/buttons/ButtonTrash';
                     keyboardVerticalOffset={200}
                 >
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                        <View>
+                        <View
+                            style={{
+                                flex: 1,
+                                backgroundColor: '#fff',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}> 
                             <View style={styles.createPosts__form}>
                                 <View style={styles.createPosts__download}>
                                     <TouchableOpacity
                                         onPress={onCamera}
                                         style={styles.createPosts__containerImg}>
                                         <Image style={styles.createPosts__img} />
-                                        {/* <Image
-                                            source={cameraIcon}
-                                            style={styles.createPosts__imgBtn} /> */}
                                             <Camera/>
                                     </TouchableOpacity>
                                     <Text style={styles.createPosts__downloadText}>Завантажте фото</Text>
@@ -75,10 +76,6 @@ import ButtonTrash from '../components/buttons/ButtonTrash';
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.createPosts__tabBar}>
-                                {/* <TouchableOpacity onPress={onDelete}
-                                    style={styles.createPosts__btnTrash}>
-                                    <Image source={trashIcon} />
-                                </TouchableOpacity> */}
                                 <ButtonTrash/>
                             </View>
                         </View>
@@ -174,7 +171,6 @@ import ButtonTrash from '../components/buttons/ButtonTrash';
         createPosts__btnPublic: {
             height: 51,
             backgroundColor: '#F6F6F6',
-            // backgroundColor: '#FF6C00',
             borderRadius: 100,
             marginTop: 32,
             width: 343,
@@ -184,34 +180,14 @@ import ButtonTrash from '../components/buttons/ButtonTrash';
         createPosts__btnText: {
             textAlign: 'center',
             fontSize: 16,
-            // color: '#FFFFFF',
             color: '#BDBDBD',
         },
         createPosts__tabBar: {
-            // borderColor: '#E5E5E5',
-            // borderTopWidth: 0.5,
             width: '100%',
             alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'row',
-            paddingTop: 9,
-            paddingBottom: 22,
-            // borderWidth: 1,
+            paddingBottom: 34,
             position: 'absolute',
             bottom: 0,
-        },
-        createPosts__btnTrash: {
-            width: 70,
-            height: 40,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#F6F6F6',
-            borderRadius: 20,
-            marginLeft: 31,
-            marginRight: 31,
-        },
-            createPosts__btnTrashText: {
-
         },
     });
 

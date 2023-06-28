@@ -61,6 +61,7 @@ function Home() {
                     headerLeft: () => <ButtonBack />,
                     title: "Створити публікацію",
                     headerTitleAlign: 'center',
+                    tabBarStyle: { display: 'none' },
                     headerTitleStyle: {
                         fontWeight: '500',
                         fontSize: 17,
