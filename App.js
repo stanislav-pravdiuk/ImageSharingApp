@@ -71,7 +71,21 @@ function App() {
         <MainStack.Screen
           name="CommentsScreen"
           options={{
-            headerShown: false,
+            // headerLeft: null,
+            title: "Коментарі",
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+                fontWeight: '500',
+                fontSize: 17,
+                color: '#212121',
+            },
+            headerRightContainerStyle: {
+                marginRight: 10,
+            },
+            headerStyle: {
+                borderBottomColor: '#E5E5E5',
+                borderBottomWidth: 0.5,
+            },
           }}
         >{() => <CommentsScreen />}
         </MainStack.Screen>

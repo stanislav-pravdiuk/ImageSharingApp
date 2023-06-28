@@ -9,7 +9,8 @@ import {
 import left from '../images/arrow-left.jpg';
 import avatar from '../images/avatar.jpg';
 import user from '../images/user.jpg';
-import send from '../images/send.jpg'
+import send from '../images/send.jpg';
+import ButtonSend from '../components/buttons/ButtonSend'
 
 
 function CommentsScreen() {
@@ -24,20 +25,6 @@ function CommentsScreen() {
 
     return (
         <View style={styles.commentsScreen}>
-            <View style={styles.commentsScreen__container}>
-                <TouchableOpacity
-                    onPress={onBack}
-                    style={styles.commentsScreen__imageContainer}
-                >
-                    <Image
-                        source={left}
-                        style={styles.commentsScreen__btn}
-                    />
-                </TouchableOpacity>
-                <View style={styles.commentsScreen__titleContainer}>
-                    <Text style={styles.commentsScreen__title}>Коментарі</Text>
-                </View>
-            </View>
             <View style={styles.commentsScreen__form}>
                 <View style={styles.commentsScreen__comments}>
                     <View
@@ -106,10 +93,11 @@ function CommentsScreen() {
                     onPress={onPost}
                     style={styles.commentsScreen__btnSendContainer}
                 >
-                        <Image
+                        {/* <Image
                             style={styles.commentsScreen__btnSend}
                             source={send}
-                        />
+                        /> */}
+                    <ButtonSend/>
                     </TouchableOpacity>
             </View>
         </View>
@@ -122,35 +110,6 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#FFFFFF',
         alignItems: 'center',
-    },
-    commentsScreen__container: {
-        flexDirection: 'row',
-        width: '100%',
-        height: 88,
-        alignItems: 'center',
-        borderBottomColor: '#E5E5E5',
-        borderBottomWidth: 0.5,
-        justifyContent: 'space-between',
-        paddingBottom: 11,
-        paddingTop: 55,
-    },
-    commentsScreen__titleContainer: {
-        flex: 1,
-        alignItems: 'center',
-        marginRight: 30,
-    },
-    commentsScreen__title: {
-        fontWeight: '500',
-        fontSize: 17,
-        lineHeight: 22,
-        color: '#212121',
-    },
-    commentsScreen__imageContainer: {
-        marginLeft: 16,
-    },
-    commentsScreen__btn: {
-        width: 24,
-        height: 24,
     },
     commentsScreen__form: {
         marginTop: 32,
