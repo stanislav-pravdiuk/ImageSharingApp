@@ -1,10 +1,13 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
 import PostsScreen from "./PostsScreen";
 import ProfileScreen from "./ProfileScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
+import ButtonBack from '../components/buttons/ButtonBack';
 import ButtonLogOut from "../components/buttons/ButtonLogOut";
-import ButtonBack from "../components/buttons/ButtonBack";
+import IconAddPost from "../components/icons/IconAddPost";
+import IconUser from "../components/icons/IconUser";
+import IconGrid from '../components/icons/IconGrid';
+
 
 const Tabs = createBottomTabNavigator();
 
@@ -13,17 +16,15 @@ function Home() {
         <Tabs.Navigator
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ color, size }) => {
-                    let iconName;
-
                     if (route.name === 'PostsScreen') {
-                        iconName = 'grid-outline';
+                        return <IconGrid/>
                     } else if (route.name === 'CreatePostsScreen') {
-                        iconName = 'add';
+                        return <IconAddPost/>
                     } else if (route.name === 'ProfileScreen') {
-                        iconName = 'person-outline';
+                        return <IconUser/>
                     }
 
-                    return <Ionicons name={iconName} size={24} color={'#212121CC'} />;
+                    // return <Ionicons name={iconName} size={24} color={'#212121CC'} />;
                 },
             })}
                 tabBarOptions={{

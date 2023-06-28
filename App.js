@@ -9,7 +9,7 @@ import PostsScreen from './src/Screens/PostsScreen.jsx'
 import CreatePostsScreen from './src/Screens/CreatePostsScreen';
 import CommentsScreen from './src/Screens/CommentsScreen';
 import ProfileScreen from './src/Screens/ProfileScreen';
-import Home from './src/Screens/Home';
+import Home from './src/Screens/Home.jsx'
 
 const MainStack = createStackNavigator();
 
