@@ -1,8 +1,7 @@
 import {
-    Image,
     TouchableOpacity,
 } from 'react-native';
-import logOut from '../../images/logOut.jpg';
+import { Feather } from '@expo/vector-icons';
 
 function ButtonLogOut() {
     
@@ -12,9 +11,7 @@ function ButtonLogOut() {
 
     return (
         <TouchableOpacity onPress={onLogout}>
-            <Image
-                source={logOut}
-            />
+            <Feather name="log-out" size={24} color='#BDBDBD'/>
         </TouchableOpacity>
     );
 };

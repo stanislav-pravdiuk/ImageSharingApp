@@ -31,20 +31,7 @@ function CreatePostsScreen() {
 
     return (
         <View style={styles.createPosts}>
-            <View style={styles.createPosts__container}>
-                <TouchableOpacity
-                    onPress={onBack}
-                    style={styles.createPosts__imageContainer}
-                >
-                    <Image
-                        source={left}
-                        style={styles.createPosts__btn}
-                    />
-                </TouchableOpacity>
-                <View style={styles.createPosts__titleContainer}>
-                    <Text style={styles.createPosts__title}>Створити публікацію</Text>
-                </View>
-            </View>
+            
             <View style={styles.createPosts__form}>
                 <View style={styles.createPosts__download}>
                     <TouchableOpacity

@@ -5,10 +5,8 @@ import {
     Image,
 } from 'react-native';
 import user from '../images/user.jpg';
-import TabBar from '../components/tabBar/TabBar';
-import ButtonLogOut from '../components/buttons/ButtonLogOut';
 
-function PostScreen() {
+function PostsScreen() {
     
     return (
         <View style={styles.posts}>
@@ -33,7 +31,6 @@ function PostScreen() {
                     <Text style={styles.posts__UserEmail}>email@example.com</Text>
                 </View>
             </View>
-            <TabBar/>
         </View>
     );
 };
@@ -102,4 +99,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PostScreen;
+export default PostsScreen;
