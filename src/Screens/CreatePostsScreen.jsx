@@ -6,16 +6,11 @@ import {
     Image,
     TouchableOpacity,
 } from 'react-native';
-import left from '../images/arrow-left.jpg';
 import cameraIcon from '../images/camera.jpg';
 import mapIcon from '../images/map-pin.jpg';
 import trashIcon from '../images/trash.jpg';
 
 function CreatePostsScreen() {
-
-    function onBack() {
-        console.log('клик будет возвращать назад');
-    };
 
     function onCamera() { 
         console.log('клик будет открывать камеру');
@@ -31,7 +26,6 @@ function CreatePostsScreen() {
 
     return (
         <View style={styles.createPosts}>
-            
             <View style={styles.createPosts__form}>
                 <View style={styles.createPosts__download}>
                     <TouchableOpacity

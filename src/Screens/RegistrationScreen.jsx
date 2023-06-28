@@ -47,7 +47,14 @@ function RegistrationScreen() {
     };
     
     return (
-    <>
+        <View
+            style={{
+                flex: 1,
+                backgroundColor: '#fff',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+        >
         <Background/>    
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -111,7 +118,7 @@ function RegistrationScreen() {
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
-    </>   
+    </View>   
     )
 };
 
