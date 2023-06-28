@@ -16,16 +16,25 @@ import navi from '../images/map-pin.jpg';
 import sunset from '../images/sunset.jpg';
 import house from '../images/house.jpg';
 import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar';
-import TabBarAlt from '../components/tabBar/TabBarAlt';
+import IconChatFill from '../components/icons/IconChatFill';
+import IconLike from '../components/icons/IconLike';
+import IconMapPin from '../components/icons/IconMapPin';
+import { useNavigation } from '@react-navigation/native';
 
 function ProfileScreen() {
 
+    const navigation = useNavigation();
+
     function onComment() { 
-        console.log('откроет комменты')
+        navigation.navigate('CommentsScreen')
     };
 
     function onLike() { 
         console.log('добавит лайк')
+    };
+
+    function onMap() { 
+        navigation.navigate('MapScreen')
     };
 
     return (
@@ -54,21 +63,17 @@ function ProfileScreen() {
                     <Text style={styles.profile__text}>Ліс</Text>
                     <View style={styles.profile__stat}>
                         <TouchableOpacity onPress={onComment}>
-                            <Image
-                                style={styles.profile__Ico}
-                                source={message} />
+                            <IconChatFill/>
                         </TouchableOpacity>                            
                         <Text style={styles.profile__Qty}>8</Text>
                         <TouchableOpacity onPress={onLike}>
-                            <Image
-                                style={styles.profile__Ico}
-                                source={like} />
+                            <IconLike/>
                         </TouchableOpacity>
                         <Text style={styles.profile__Qty}>153</Text>
-                        <TouchableOpacity style={styles.profile__navi}>
-                            <Image
-                                tyle={styles.profile__Ico}
-                                source={navi} />
+                        <TouchableOpacity
+                            onPress={onMap}
+                            style={styles.profile__navi}>
+                            <IconMapPin/>
                             <Text style={styles.profile__textNavi}>Ukraine</Text>
                         </TouchableOpacity>
                     </View>
@@ -80,21 +85,17 @@ function ProfileScreen() {
                     <Text style={styles.profile__text}>Захід на чорному морі</Text>
                     <View style={styles.profile__stat}>
                         <TouchableOpacity onPress={onComment}>
-                            <Image
-                                style={styles.profile__Ico}
-                                source={message} />
+                            <IconChatFill/>
                         </TouchableOpacity>                            
                         <Text style={styles.profile__Qty}>3</Text>
                         <TouchableOpacity onPress={onLike}>
-                            <Image
-                                style={styles.profile__Ico}
-                                source={like} />
+                            <IconLike/>
                         </TouchableOpacity>
                         <Text style={styles.profile__Qty}>200</Text>
-                        <TouchableOpacity style={styles.profile__navi}>
-                            <Image
-                                tyle={styles.profile__Ico}
-                                source={navi} />
+                        <TouchableOpacity
+                            onPress={onMap}
+                            style={styles.profile__navi}>
+                            <IconMapPin/>
                             <Text style={styles.profile__textNavi}>Ukraine</Text>
                         </TouchableOpacity>
                     </View>
@@ -106,21 +107,17 @@ function ProfileScreen() {
                     <Text style={styles.profile__text}>Старий будиночок у Венеції</Text>
                     <View style={styles.profile__stat}>
                         <TouchableOpacity onPress={onComment}>
-                            <Image
-                                style={styles.profile__Ico}
-                                source={message} />
+                            <IconChatFill/>
                         </TouchableOpacity>                            
                         <Text style={styles.profile__Qty}>50</Text>
                         <TouchableOpacity onPress={onLike}>
-                            <Image
-                                style={styles.profile__Ico}
-                                source={like} />
+                            <IconLike/>
                         </TouchableOpacity>
                         <Text style={styles.profile__Qty}>200</Text>
-                        <TouchableOpacity style={styles.profile__navi}>
-                            <Image
-                                tyle={styles.profile__Ico}
-                                source={navi} />
+                        <TouchableOpacity
+                            onPress={onMap}
+                            style={styles.profile__navi}>
+                            <IconMapPin/>
                             <Text style={styles.profile__textNavi}>Italy</Text>
                         </TouchableOpacity>
                     </View>
@@ -191,15 +188,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginRight: 24,
     },
-    profile__Ico: {
-        width: 24,
-        height: 24,
-        marginRight: 6,
-    },
     profile__Qty: {
         fontSize: 16,
         color: '#212121',
         marginRight: 24,
+        marginLeft: 6,
     },
     profile__navi: {
         flexDirection: 'row',

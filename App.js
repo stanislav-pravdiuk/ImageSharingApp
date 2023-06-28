@@ -10,6 +10,7 @@ import CreatePostsScreen from './src/Screens/CreatePostsScreen';
 import CommentsScreen from './src/Screens/CommentsScreen';
 import ProfileScreen from './src/Screens/ProfileScreen';
 import Home from './src/Screens/Home.jsx'
+import MapScreen from './src/Screens/MapScreen';
 
 const MainStack = createStackNavigator();
 
@@ -81,6 +82,14 @@ function App() {
             headerShown: false,
           }}
         >{() => <ProfileScreen />}
+        </MainStack.Screen>
+
+        <MainStack.Screen
+          name="MapScreen"
+          // options={{
+          //   headerShown: false,
+          // }}
+        >{() => <MapScreen />}
         </MainStack.Screen>
 
       </MainStack.Navigator>

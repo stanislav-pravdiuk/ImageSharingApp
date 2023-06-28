@@ -31,7 +31,7 @@ function Home() {
                     showLabel: false,
                     tabBarStyle: [{
                         display: 'flex',
-                    },null,],
+                    }, null,],
             }}
         >
             <Tabs.Screen
@@ -62,7 +62,7 @@ function Home() {
                     headerLeft: () => <ButtonBack />,
                     title: "Створити публікацію",
                     headerTitleAlign: 'center',
-                    tabBarStyle: { display: 'none' },
+                    tabBarStyle: { display: 'none'},
                     headerTitleStyle: {
                         fontWeight: '500',
                         fontSize: 17,
@@ -81,7 +81,7 @@ function Home() {
                 component={ProfileScreen}
                 options={{
                     headerShown: false,
-            }}
+                }}
             />
         </Tabs.Navigator>
     );
