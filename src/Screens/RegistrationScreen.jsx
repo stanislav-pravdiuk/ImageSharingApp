@@ -1,4 +1,3 @@
-import React from "react";
 import {
     TextInput,
     StyleSheet,
@@ -10,11 +9,10 @@ import {
     KeyboardAvoidingView,
     Keyboard,
 } from 'react-native';
-import Background from '../components/background/Background';
 import { useState } from 'react';
-import ButtonAddAvatar from '../components/buttons/ButtonAddAvatar';
 import { useNavigation } from "@react-navigation/native";
-
+import Background from '../components/background/Background';
+import ButtonAddAvatar from '../components/buttons/ButtonAddAvatar';
 
 function RegistrationScreen() {
 
@@ -53,73 +51,72 @@ function RegistrationScreen() {
                 backgroundColor: '#fff',
                 alignItems: 'center',
                 justifyContent: 'center',
-            }}
-        >
-        <Background/>    
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.container}
-            keyboardVerticalOffset={-240}
-        >
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.reg}>
-                    <Image
-                        style={styles.reg__avatar}
-                    />
-                    <View style={styles.reg__add}>
-                        <ButtonAddAvatar/>
-                    </View>
-                    <Text style={styles.reg__title}>Реєстрація</Text>
-                    <TextInput
-                        value={login}
-                        onChangeText={setLogin}
-                        style={styles.reg__inputLog}
-                        placeholder='Логін'
-                        placeholderTextColor='#BDBDBD'
-                    />
-                    <TextInput
-                        value={email}
-                        onChangeText={setEmail}
-                        style={styles.reg__inputMail}
-                        placeholder='Адреса електронної пошти'
-                        placeholderTextColor='#BDBDBD'
-                    />
-                    <TextInput
-                        value={password}
-                        onChangeText={setPassword}
-                        secureTextEntry={!showPassword}
-                        style={styles.reg__inputPass}
-                        placeholder='Пароль'
-                        placeholderTextColor='#BDBDBD'
-                    />
-                    <TouchableOpacity style={styles.reg__viewLink}>
+            }}>
+            <Background />
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={styles.container}
+                keyboardVerticalOffset={-240}
+            >
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={styles.reg}>
+                        <Image
+                            style={styles.reg__avatar}
+                        />
+                        <View style={styles.reg__add}>
+                            <ButtonAddAvatar />
+                        </View>
+                        <Text style={styles.reg__title}>Реєстрація</Text>
+                        <TextInput
+                            value={login}
+                            onChangeText={setLogin}
+                            style={styles.reg__inputLog}
+                            placeholder='Логін'
+                            placeholderTextColor='#BDBDBD'
+                        />
+                        <TextInput
+                            value={email}
+                            onChangeText={setEmail}
+                            style={styles.reg__inputMail}
+                            placeholder='Адреса електронної пошти'
+                            placeholderTextColor='#BDBDBD'
+                        />
+                        <TextInput
+                            value={password}
+                            onChangeText={setPassword}
+                            secureTextEntry={!showPassword}
+                            style={styles.reg__inputPass}
+                            placeholder='Пароль'
+                            placeholderTextColor='#BDBDBD'
+                        />
+                        <TouchableOpacity style={styles.reg__viewLink}>
                             <Text
                                 onPress={onView}
                                 style={styles.reg__viewLinkText}
                             >{showPassword
-                                    ? 'Приховати'
-                                    : 'Показати'}
+                                ? 'Приховати'
+                                : 'Показати'}
                             </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.reg__btn}>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.reg__btn}>
                             <Text
                                 style={styles.reg__btnText}
                                 onPress={onRegistration}
                             >Реєстрація
                             </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={onRedirectToLogin}
-                        style={styles.reg__loginlink}>
-                        <Text style={styles.reg__linkText}
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={onRedirectToLogin}
+                            style={styles.reg__loginlink}>
+                            <Text style={styles.reg__linkText}
                             >Вже є акаунт? Увійти
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
-    </View>   
-    )
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({

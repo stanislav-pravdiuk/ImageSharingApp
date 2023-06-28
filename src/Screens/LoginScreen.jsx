@@ -8,13 +8,11 @@ import {
     TouchableWithoutFeedback,
     KeyboardAvoidingView,
     Keyboard,
-
 } from 'react-native';
-import delImg from '../images/del.jpg';
-import Background from '../components/background/Background';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar'
+import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar';
+import Background from '../components/background/Background';
 
 function LoginScrin() {
 
@@ -43,12 +41,14 @@ function LoginScrin() {
         navigation.navigate("RegistrationScreen")
     };
 
-    function onDelAvatar() {
-        console.log(`этот клик должен удалять фото`)
-    };
-
     return (
-        <>  
+        <View
+            style={{
+                flex: 1,
+                backgroundColor: '#fff',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}>  
             <Background/>    
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -101,7 +101,7 @@ function LoginScrin() {
                     </View>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
-        </>
+        </View>
     );
 };
 
