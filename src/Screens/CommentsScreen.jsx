@@ -5,11 +5,12 @@ import {
     View,
     Image,
     TouchableOpacity,
+    TouchableWithoutFeedback,
+    KeyboardAvoidingView,
+    Keyboard,
 } from 'react-native';
-import left from '../images/arrow-left.jpg';
 import avatar from '../images/avatar.jpg';
 import user from '../images/user.jpg';
-import send from '../images/send.jpg';
 import ButtonSend from '../components/buttons/ButtonSend'
 
 
@@ -24,7 +25,22 @@ function CommentsScreen() {
     };
 
     return (
-        <View style={styles.commentsScreen}>
+<View style={styles.commentsScreen}>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.container}
+            keyboardVerticalOffset={60}
+        >                
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View
+        style={{
+            flex: 1,
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+            justifyContent: 'center',
+            top: -100,
+        }}>
             <View style={styles.commentsScreen__form}>
                 <View style={styles.commentsScreen__comments}>
                     <View
@@ -93,14 +109,13 @@ function CommentsScreen() {
                     onPress={onPost}
                     style={styles.commentsScreen__btnSendContainer}
                 >
-                        {/* <Image
-                            style={styles.commentsScreen__btnSend}
-                            source={send}
-                        /> */}
                     <ButtonSend/>
-                    </TouchableOpacity>
-            </View>
-        </View>
+                </TouchableOpacity>
+                </View>
+            </View>            
+        </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+</View>
     );
 };
 
@@ -193,9 +208,9 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: 16,
+        // paddingTop: 16,
         position: 'absolute',
-        bottom: 0,
+        bottom: -100,
     },
     commentsScreen__input: {
         backgroundColor: '#E8E8E8',
@@ -209,14 +224,6 @@ const styles = StyleSheet.create({
     commentsScreen__btnSendContainer: {
         top: -42,
         left: 145,
-        width: 34,
-        height: 34,
-        overflow: 'hidden',
-        borderRadius: 100,
-    },
-    commentsScreen__btnSend: {
-        width: 34,
-        height: 34,
     },
 });
 
