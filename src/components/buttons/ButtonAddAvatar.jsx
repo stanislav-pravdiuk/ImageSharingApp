@@ -1,8 +1,7 @@
 import {
-    Image,
     TouchableOpacity,
 } from 'react-native';
-import addAvatar from '../../images/add.jpg';
+import { Ionicons } from '@expo/vector-icons';
 
 function ButtonAddAvatar() {
         
@@ -12,12 +11,9 @@ function ButtonAddAvatar() {
 
     return (
         <TouchableOpacity
-            style={{ overflow: 'hidden', borderRadius: 100 }}
+            style={{ overflow: 'hidden', borderRadius: 100}}
             onPress={onAddAvatar}>
-            <Image
-                style={{ width: 25, height: 25}}
-                source={addAvatar}
-            />
+            <Ionicons name="ios-add-circle-outline" size={25} color="#FF6C00" />
         </TouchableOpacity>
     );
 };

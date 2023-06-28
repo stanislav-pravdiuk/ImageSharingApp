@@ -88,7 +88,7 @@ function RegistrationScreen() {
                     <TouchableOpacity style={styles.reg__viewLink}>
                             <Text
                                 onPress={onView}
-                                style={styles.log__viewLinkText}
+                                style={styles.reg__viewLinkText}
                             >{showPassword
                                     ? 'Приховати'
                                     : 'Показати'}
@@ -101,12 +101,12 @@ function RegistrationScreen() {
                             >Реєстрація
                             </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.reg__loginlink}>
-                            <Text
-                                onPress={onRedirectToLogin}
-                                style={styles.reg__linkText}
+                    <TouchableOpacity
+                        onPress={onRedirectToLogin}
+                        style={styles.reg__loginlink}>
+                        <Text style={styles.reg__linkText}
                             >Вже є акаунт? Увійти
-                            </Text>
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </TouchableWithoutFeedback>

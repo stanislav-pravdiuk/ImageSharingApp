@@ -14,6 +14,7 @@ import delImg from '../images/del.jpg';
 import Background from '../components/background/Background';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar'
 
 function LoginScrin() {
 
@@ -57,12 +58,9 @@ function LoginScrin() {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>                        
                     <View style={styles.log}>                    
                         <Image style={styles.log__avatar} />
-                        <TouchableOpacity
-                            onPress={onDelAvatar}
-                        >
-                            <Image source={delImg} style={styles.log__add} />
-                        </TouchableOpacity>
-                        
+                        <View style={styles.log__add}>
+                            <ButtonDelAvatar />
+                        </View>
                         <Text style={styles.log__title}>Увійти</Text>
                         <TextInput
                             value={email}
@@ -96,7 +94,9 @@ function LoginScrin() {
                         <TouchableOpacity
                             onPress={onRedirectToRegister}
                             style={styles.log__loginlink}>
-                            <Text style={styles.log__linkText}>Немає акаунту? Зареєструватися</Text>
+                            <Text style={styles.log__linkText}
+                                >Немає акаунту? Зареєструватися
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </TouchableWithoutFeedback>

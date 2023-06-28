@@ -2,7 +2,8 @@ import {
     Image,
     TouchableOpacity,
 } from 'react-native';
-import delAvatar from '../../images/del.jpg';
+import { AntDesign } from '@expo/vector-icons';
+import { ImageBackground } from 'react-native';
 
 
 function ButtonDelAvatar() { 
@@ -13,12 +14,9 @@ function ButtonDelAvatar() {
 
     return (
         <TouchableOpacity
-            style={{ overflow: 'hidden', borderRadius: 100 }}
+            style={{ overflow: 'hidden', borderRadius: 100, backgroundColor: 'white'}}
             onPress={onDelAvatar}>
-            <Image
-                style={{ width: 25, height: 25}}
-                source={delAvatar}
-            />
+            <AntDesign name="closecircleo" size={25} color="#E8E8E8" />
         </TouchableOpacity>
     );
 };

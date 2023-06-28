@@ -29,7 +29,7 @@ function ProfileScreen() {
     };
 
     return (
-        <>
+        <View style={{alignItems: "center",}}>
             <Background/>
             <View style={styles.profile}>
                 <Image
@@ -126,8 +126,7 @@ function ProfileScreen() {
                     </View>
                 </View>
             </ScrollView>
-            <TabBarAlt />
-        </>   
+        </View>   
     )
 };
 
@@ -169,14 +168,16 @@ const styles = StyleSheet.create({
     profile__postsContainer: {
         position: 'absolute',
         top: 286,
-        height: 556,
-        // borderWidth: 1
+        height: 579,
+        // borderWidth: 1,
         // width: '100%',
+        marginLeft: 10
 
     },
     profile__postBox: {
         width: 343,
         marginBottom: 32,
+        
     },
     profile__image: {
         borderRadius: 8,
