@@ -1,17 +1,18 @@
-    import {
-        TextInput,
-        StyleSheet,
-        Text,
-        View,
-        Image,
-        TouchableOpacity,
-        KeyboardAvoidingView,
-        TouchableWithoutFeedback,
-        Keyboard,
-    } from 'react-native';
-    import cameraIcon from '../images/camera.jpg';
-    import mapIcon from '../images/map-pin.jpg';
-    import trashIcon from '../images/trash.jpg';
+import {
+    TextInput,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TouchableOpacity,
+    KeyboardAvoidingView,
+    TouchableWithoutFeedback,
+    Keyboard,
+} from 'react-native';
+import cameraIcon from '../images/camera.jpg';
+import trashIcon from '../images/trash.jpg';
+import MapPin from '../components/icons/MapPin';
+import Camera from '../components/icons/Camera';
 
     function CreatePostsScreen() {
 
@@ -42,9 +43,10 @@
                                         onPress={onCamera}
                                         style={styles.createPosts__containerImg}>
                                         <Image style={styles.createPosts__img} />
-                                        <Image
+                                        {/* <Image
                                             source={cameraIcon}
-                                            style={styles.createPosts__imgBtn} />
+                                            style={styles.createPosts__imgBtn} /> */}
+                                            <Camera/>
                                     </TouchableOpacity>
                                     <Text style={styles.createPosts__downloadText}>Завантажте фото</Text>
                                 </View>
@@ -58,10 +60,7 @@
                                     />
                                 </View>
                                 <View style={styles.createPosts__naviPost}>
-                                    <Image
-                                        source={mapIcon}
-                                        style={styles.createPosts__mapIcon}
-                                    />
+                                    <MapPin />
                                     <TextInput
                                     // value={title}
                                     // onChangeText={setPassword}
@@ -140,12 +139,8 @@
             height: 240,
             borderRadius: 8,
             backgroundColor: '#E8E8E8',
-        },
-        createPosts__imgBtn: {
-            borderRadius: 100,
-            marginLeft: 142,
-            marginTop: 90,
-
+            justifyContent: 'center',
+            alignItems: 'center',
         },
         createPosts__img: {
             width: 343,
@@ -176,10 +171,7 @@
         createPosts__naviInput: {
             height: 50,
             fontSize: 16,
-        },
-        createPosts__mapIcon: {
-            width: 24,
-            height: 24,
+            paddingLeft: 6,
         },
         createPosts__btnPublic: {
             height: 51,
