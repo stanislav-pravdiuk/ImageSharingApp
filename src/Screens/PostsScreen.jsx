@@ -11,8 +11,7 @@ import forest from '../images/forest.png';
 import sunset from '../images/sunset.jpg';
 import house from '../images/house.jpg';
 import { useNavigation } from '@react-navigation/native';
-import IconChatFill from '../components/icons/IconChatFill';
-import IconLike from '../components/icons/IconLike';
+import IconChat from '../components/icons/IconChat';
 import IconMapPin from '../components/icons/IconMapPin';
 
 function PostsScreen() {
@@ -54,14 +53,12 @@ function PostsScreen() {
                     </View>
                     <Text style={styles.profile__text}>Ліс</Text>
                     <View style={styles.profile__stat}>
-                        <TouchableOpacity onPress={onComment}>
-                            <IconChatFill/>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity
+                            onPress={onComment}>
+                            <IconChat/>
                         </TouchableOpacity>                            
-                        <Text style={styles.profile__Qty}>8</Text>
-                        <TouchableOpacity onPress={onLike}>
-                            <IconLike/>
-                        </TouchableOpacity>
-                        <Text style={styles.profile__Qty}>153</Text>
+                        <Text style={styles.profile__Qty}>8</Text></View>
                         <TouchableOpacity
                             onPress={onMap}
                             style={styles.profile__navi}>
@@ -76,14 +73,12 @@ function PostsScreen() {
                     </View>
                     <Text style={styles.profile__text}>Захід на чорному морі</Text>
                     <View style={styles.profile__stat}>
-                        <TouchableOpacity onPress={onComment}>
-                            <IconChatFill/>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity
+                            onPress={onComment}>
+                            <IconChat/>
                         </TouchableOpacity>                            
-                        <Text style={styles.profile__Qty}>3</Text>
-                        <TouchableOpacity onPress={onLike}>
-                            <IconLike/>
-                        </TouchableOpacity>
-                        <Text style={styles.profile__Qty}>200</Text>
+                        <Text style={styles.profile__Qty}>3</Text></View>
                         <TouchableOpacity
                             onPress={onMap}
                             style={styles.profile__navi}>
@@ -98,14 +93,12 @@ function PostsScreen() {
                     </View>
                     <Text style={styles.profile__text}>Старий будиночок у Венеції</Text>
                     <View style={styles.profile__stat}>
-                        <TouchableOpacity onPress={onComment}>
-                            <IconChatFill/>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity
+                            onPress={onComment}>
+                            <IconChat/>
                         </TouchableOpacity>                            
-                        <Text style={styles.profile__Qty}>50</Text>
-                        <TouchableOpacity onPress={onLike}>
-                            <IconLike/>
-                        </TouchableOpacity>
-                        <Text style={styles.profile__Qty}>200</Text>
+                        <Text style={styles.profile__Qty}>50</Text></View>
                         <TouchableOpacity
                             onPress={onMap}
                             style={styles.profile__navi}>
@@ -172,18 +165,19 @@ const styles = StyleSheet.create({
     profile__stat: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginRight: 24,
+        // borderWidth: 1,
+        justifyContent:'space-between'
     },
     profile__Qty: {
         fontSize: 16,
         color: '#212121',
-        marginRight: 24,
         marginLeft: 6,
+        // borderWidth:1
     },
     profile__navi: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: 117,
+        // borderWidth:1
     },
     profile__textNavi: {
         textDecorationLine: 'underline',

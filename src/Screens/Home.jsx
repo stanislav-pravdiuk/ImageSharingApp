@@ -15,23 +15,22 @@ function Home() {
     return (
         <Tabs.Navigator
             screenOptions={({ route }) => ({
-                tabBarIcon: () => {
-                    if (route.name === 'PostsScreen') {
-                        return <IconGrid/>
-                    } else if (route.name === 'CreatePostsScreen') {
-                        return <IconAddPost />
-                    } else if (route.name === 'ProfileScreen') {
-                        return <IconUser />
-                    }
-                },
-            })}
-                tabBarOptions={{
-                    showLabel: false,
-                    tabBarStyle: [{
-                        display: 'flex',
-                    }, null,],
-            }}
-        >
+                tabBarIcon: ({ focused }) => {
+                if (route.name === 'PostsScreen') {
+                    return <IconGrid focused={focused} />;
+                } else if (route.name === 'CreatePostsScreen') {
+                    return <IconAddPost focused={focused} />;
+                } else if (route.name === 'ProfileScreen') {
+                    return <IconUser focused={focused} />;
+                }
+            },
+            tabBarLabelStyle: {
+                display: 'none',
+            },
+            tabBarStyle: {
+                display: 'flex',
+            },
+        })}>
             <Tabs.Screen
                 name="PostsScreen"
                 component={PostsScreen} 
