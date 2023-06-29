@@ -10,9 +10,6 @@ import Background from '../components/background/Background';
 import userBig from '../images/userBig.jpg'
 import ButtonLogOut from '../components/buttons/ButtonLogOut';
 import forest from '../images/forest.png';
-import message from '../images/message-circle.jpg';
-import like from '../images/like.jpg';
-import navi from '../images/map-pin.jpg';
 import sunset from '../images/sunset.jpg';
 import house from '../images/house.jpg';
 import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar';
@@ -52,7 +49,7 @@ function ProfileScreen() {
                     <ButtonLogOut />
                 </View>
                     <Text style={styles.profile__title}>Natali Romanova</Text>
-                </View>
+            </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={styles.profile__postsContainer}>
@@ -166,10 +163,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 286,
         height: 579,
-        // borderWidth: 1,
-        // width: '100%',
         marginLeft: 10
-
     },
     profile__postBox: {
         width: 343,
