@@ -16,7 +16,6 @@ import { useEffect, useState } from 'react';
 import * as Location from "expo-location";
 import { useNavigation } from '@react-navigation/native';
 
-
 function CreatePostsScreen() {
         
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -30,10 +29,23 @@ function CreatePostsScreen() {
         setIsButtonDisabled(checkButtonDisabled())
     });
 
-    function onPublik() {
+    useEffect(() => {
+        (async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== "granted") {
+                console.log("Permission to access location was denied");
+            }
 
-        getLocation();        
-        
+        let location = await Location.getCurrentPositionAsync({});
+        const coords = {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+        };
+        setLocation(coords);
+    })();
+    }, []);
+
+    function onPublik() {
         console.log(`
         name - ${picTitle},
         place - ${locationTitle},
@@ -47,35 +59,15 @@ function CreatePostsScreen() {
     };
 
     function resetState() { 
-
         setPicTitle('');
         setPicSource('');
         setLocationTitle('');
-        // setLocation('');
+        setLocation('');
         setIsButtonDisabled(true)
     };
 
     function checkButtonDisabled() {
-
         return picTitle === '' || locationTitle === '' || picSource=== '';
-    };
-
-    async function getLocation() {
-
-        let { status } = await Location.requestForegroundPermissionsAsync();
-
-            if (status !== "granted") {
-                console.log("Permission to access location was denied");
-        };
-
-        let location = await Location.getCurrentPositionAsync({});
-
-            const coords = {
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-        };
-
-        setLocation(coords);
     };
     
     function onSetPicSource(uri) {
@@ -151,7 +143,6 @@ function CreatePostsScreen() {
             width: '100%',
             backgroundColor: '#FFFFFF',
             alignItems: 'center',
-            // justifyContent: 'center',
             flex: 1,
         },
         createPosts__container: {

@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from 'expo-font';
 import RegistrationScreen from './src/Screens/RegistrationScreen';
-import LoginScrin from './src/Screens/LoginScreen';
+import LoginScreen from './src/Screens/LoginScreen';
 import PostsScreen from './src/Screens/PostsScreen.jsx'
 import CreatePostsScreen from './src/Screens/CreatePostsScreen';
 import CommentsScreen from './src/Screens/CommentsScreen';
@@ -37,11 +37,11 @@ function App() {
         </MainStack.Screen>
 
         <MainStack.Screen
-          name="LoginScrin"
+          name="LoginScreen"
           options={{
             headerShown: false,
           }}
-        >{() => <LoginScrin />}
+        >{() => <LoginScreen />}
         </MainStack.Screen>
 
         <MainStack.Screen

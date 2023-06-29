@@ -41,7 +41,7 @@ function RegistrationScreen() {
     };
 
     function onRedirectToLogin() {
-        navigation.navigate("LoginScrin")
+        navigation.navigate("LoginScreen")
     };
     
     return (

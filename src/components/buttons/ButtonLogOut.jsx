@@ -2,11 +2,14 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 function ButtonLogOut() {
     
+    const navigation = useNavigation()
+
     function onLogout() { 
-        console.log('клик будет делать logout')
+        navigation.navigate('LoginScreen')
     };
 
     return (
