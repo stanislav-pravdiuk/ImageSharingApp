@@ -30,19 +30,7 @@ function CreatePostsScreen() {
 
     function onPublik() {
 
-        (async () => {
-            let { status } = await Location.requestPermissionsAsync();
-            if (status !== "granted") {
-                console.log("Permission to access location was denied");
-            }
-
-        let location = await Location.getCurrentPositionAsync({});
-        const coords = {
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-        };
-        setLocation(coords);
-        })();
+        getLocation();        
         
         console.log(`
         name - ${picTitle},
@@ -53,7 +41,7 @@ function CreatePostsScreen() {
 
         resetState()
         
-        // navigation.navigate('PostsScreen');
+        navigation.navigate('PostsScreen');
     };
 
     function resetState() { 
@@ -61,30 +49,38 @@ function CreatePostsScreen() {
         setPicTitle('');
         setImgSource('');
         setLocationTitle('');
-        setLocation('');
+        // setLocation('');
         setIsButtonDisabled(true)
     };
 
     function checkButtonDisabled() {
 
         return picTitle === '' || locationTitle === '';
-}
+    };
+
+    async function getLocation() {
+        let { status } = await Location.requestPermissionsAsync();
+            if (status !== "granted") {
+                console.log("Permission to access location was denied");
+        };
+
+        let location = await Location.getCurrentPositionAsync({});
+            const coords = {
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+        };
+
+        setLocation(coords);
+        };
 
         return (
             <View style={styles.createPosts}>
                 <KeyboardAvoidingView
                     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                     style={styles.container}
-                    keyboardVerticalOffset={200}
+                    keyboardVerticalOffset={-400}
                 >
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                        <View
-                            style={{
-                                flex: 1,
-                                backgroundColor: '#fff',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}> 
                             <View style={styles.createPosts__form}>
                                 <View style={styles.createPosts__download}>
                                     <View
@@ -125,11 +121,10 @@ function CreatePostsScreen() {
                                         { color: isButtonDisabled ? '#BDBDBD' : 'white' }    
                                         ]}>Опублікувати</Text>
                                 </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity
-                                onPress={resetState}
-                                style={styles.createPosts__tabBar}>
-                                <ButtonTrash/>
+                                <TouchableOpacity
+                                    onPress={resetState}
+                                    style={styles.createPosts__tabBar}>
+                                        <ButtonTrash/>
                             </TouchableOpacity>
                         </View>
                     </TouchableWithoutFeedback>
@@ -144,7 +139,7 @@ function CreatePostsScreen() {
             width: '100%',
             backgroundColor: '#FFFFFF',
             alignItems: 'center',
-            justifyContent: 'center',
+            // justifyContent: 'center',
             flex: 1,
         },
         createPosts__container: {
@@ -177,7 +172,7 @@ function CreatePostsScreen() {
             height: 24,
         },
         createPosts__form: {
-            top: -105,
+            marginTop: 32,
             alignItems: 'center',
         },
         createPosts__download: {
@@ -226,7 +221,6 @@ function CreatePostsScreen() {
         },
         createPosts__btnPublic: {
             height: 51,
-            // backgroundColor: isButtonDisabled ? '#F6F6F6' : '#FF0000',
             borderRadius: 100,
             marginTop: 32,
             width: 343,
@@ -241,9 +235,8 @@ function CreatePostsScreen() {
         createPosts__tabBar: {
             width: '100%',
             alignItems: 'center',
-            paddingBottom: 34,
             position: 'absolute',
-            bottom: 0,
+            bottom: -261
         },
     });
 
