@@ -3,25 +3,72 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
     TouchableOpacity,
     KeyboardAvoidingView,
     TouchableWithoutFeedback,
     Keyboard,
 } from 'react-native';
 import MapPin from '../components/icons/IconMapPin';
-import Camera from '../components/icons/IconCamera';
 import ButtonTrash from '../components/buttons/ButtonTrash';
+import ComponentCamera from '../components/camera/ComponentCamera';
+import { useEffect, useState } from 'react';
+import * as Location from "expo-location";
+import { useNavigation } from '@react-navigation/native';
 
-    function CreatePostsScreen() {
+function CreatePostsScreen() {
+        
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [picTitle, setPicTitle] = useState('');
+    const [locationTitle, setLocationTitle] = useState('');
+    const [location, setLocation] = useState('');
+    const [imgSource, setImgSource] = useState('')
+    const navigation = useNavigation('');
 
-        function onCamera() { 
-            console.log('клик будет открывать камеру');
+    useEffect(() => { 
+        setIsButtonDisabled(checkButtonDisabled())
+    });
+
+    function onPublik() {
+
+        (async () => {
+            let { status } = await Location.requestPermissionsAsync();
+            if (status !== "granted") {
+                console.log("Permission to access location was denied");
+            }
+
+        let location = await Location.getCurrentPositionAsync({});
+        const coords = {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
         };
+        setLocation(coords);
+        })();
+        
+        console.log(`
+        name - ${picTitle},
+        place - ${locationTitle},
+        coords - ${location},
+        image - ${imgSource}
+        `);
 
-        function onPublik() { 
-            console.log('клик будет делать пост запрос, скорее всего)))')
-        };
+        resetState()
+        
+        // navigation.navigate('PostsScreen');
+    };
+
+    function resetState() { 
+
+        setPicTitle('');
+        setImgSource('');
+        setLocationTitle('');
+        setLocation('');
+        setIsButtonDisabled(true)
+    };
+
+    function checkButtonDisabled() {
+
+        return picTitle === '' || locationTitle === '';
+}
 
         return (
             <View style={styles.createPosts}>
@@ -40,18 +87,16 @@ import ButtonTrash from '../components/buttons/ButtonTrash';
                             }}> 
                             <View style={styles.createPosts__form}>
                                 <View style={styles.createPosts__download}>
-                                    <TouchableOpacity
-                                        onPress={onCamera}
+                                    <View
                                         style={styles.createPosts__containerImg}>
-                                        <Image style={styles.createPosts__img} />
-                                            <Camera/>
-                                    </TouchableOpacity>
+                                        <ComponentCamera />
+                                    </View>
                                     <Text style={styles.createPosts__downloadText}>Завантажте фото</Text>
                                 </View>
                                 <View style={styles.createPosts__titlePost}>
                                     <TextInput
-                                    // value={title}
-                                    // onChangeText={setPassword}
+                                    value={picTitle}
+                                    onChangeText={setPicTitle}
                                     style={styles.createPosts__titleInput}
                                     placeholder='Назва...'
                                     placeholderTextColor='#BDBDBD'
@@ -60,8 +105,8 @@ import ButtonTrash from '../components/buttons/ButtonTrash';
                                 <View style={styles.createPosts__naviPost}>
                                     <MapPin />
                                     <TextInput
-                                    // value={title}
-                                    // onChangeText={setPassword}
+                                    value={locationTitle}
+                                    onChangeText={setLocationTitle}
                                     style={styles.createPosts__naviInput}
                                     placeholder='Місцевість'
                                     placeholderTextColor='#BDBDBD'
@@ -69,15 +114,23 @@ import ButtonTrash from '../components/buttons/ButtonTrash';
                                 </View>
                                 <TouchableOpacity
                                     onPress={onPublik}
-                                    style={styles.createPosts__btnPublic}>
+                                    style={[
+                                        styles.createPosts__btnPublic,
+                                        { backgroundColor: isButtonDisabled ? '#F6F6F6' : '#FF6C00' }
+                                    ]}
+                                    disabled={isButtonDisabled}
+                                >
                                     <Text
-                                        // onPress={onLogin}
-                                        style={styles.createPosts__btnText}>Опублікувати</Text>
+                                        style={[styles.createPosts__btnText,
+                                        { color: isButtonDisabled ? '#BDBDBD' : 'white' }    
+                                        ]}>Опублікувати</Text>
                                 </TouchableOpacity>
                             </View>
-                            <View style={styles.createPosts__tabBar}>
+                            <TouchableOpacity
+                                onPress={resetState}
+                                style={styles.createPosts__tabBar}>
                                 <ButtonTrash/>
-                            </View>
+                            </TouchableOpacity>
                         </View>
                     </TouchableWithoutFeedback>
                 </KeyboardAvoidingView>
@@ -129,13 +182,16 @@ import ButtonTrash from '../components/buttons/ButtonTrash';
         },
         createPosts__download: {
             height: 267,
+            width: 343,
         },
         createPosts__containerImg: {
             height: 240,
+            width: '100%',
             borderRadius: 8,
             backgroundColor: '#E8E8E8',
             justifyContent: 'center',
             alignItems: 'center',
+            overflow: 'hidden',
         },
         createPosts__img: {
             width: 343,
@@ -170,7 +226,7 @@ import ButtonTrash from '../components/buttons/ButtonTrash';
         },
         createPosts__btnPublic: {
             height: 51,
-            backgroundColor: '#F6F6F6',
+            // backgroundColor: isButtonDisabled ? '#F6F6F6' : '#FF0000',
             borderRadius: 100,
             marginTop: 32,
             width: 343,

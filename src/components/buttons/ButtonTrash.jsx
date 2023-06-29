@@ -1,18 +1,13 @@
 import { Feather } from '@expo/vector-icons';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 function ButtonTrash() {
-
-    function onDelete() { 
-        console.log('клик будет отменять публикацию')
-    };
     
     return (
-        <TouchableOpacity
-            onPress={onDelete}
+        <View
             style={styles.iconContainer}>
             <Feather name="trash-2" size={24} color="#BDBDBD" />
-        </TouchableOpacity>
+        </View>
     );
 };
 
