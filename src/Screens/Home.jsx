@@ -15,16 +15,14 @@ function Home() {
     return (
         <Tabs.Navigator
             screenOptions={({ route }) => ({
-                tabBarIcon: ({ color, size }) => {
+                tabBarIcon: () => {
                     if (route.name === 'PostsScreen') {
                         return <IconGrid/>
                     } else if (route.name === 'CreatePostsScreen') {
-                        return <IconAddPost/>
+                        return <IconAddPost />
                     } else if (route.name === 'ProfileScreen') {
-                        return <IconUser/>
+                        return <IconUser />
                     }
-
-                    // return <Ionicons name={iconName} size={24} color={'#212121CC'} />;
                 },
             })}
                 tabBarOptions={{
