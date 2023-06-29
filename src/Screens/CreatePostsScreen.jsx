@@ -21,7 +21,7 @@ function CreatePostsScreen() {
     const [picTitle, setPicTitle] = useState('');
     const [locationTitle, setLocationTitle] = useState('');
     const [location, setLocation] = useState('');
-    const [imgSource, setImgSource] = useState('')
+    const [picSource, setPicSource] = useState('')
     const navigation = useNavigation('');
 
     useEffect(() => { 
@@ -36,7 +36,7 @@ function CreatePostsScreen() {
         name - ${picTitle},
         place - ${locationTitle},
         coords - ${location},
-        image - ${imgSource}
+        image - ${picSource}
         `);
 
         resetState()
@@ -47,7 +47,7 @@ function CreatePostsScreen() {
     function resetState() { 
 
         setPicTitle('');
-        setImgSource('');
+        setPicSource('');
         setLocationTitle('');
         // setLocation('');
         setIsButtonDisabled(true)
@@ -71,7 +71,11 @@ function CreatePostsScreen() {
         };
 
         setLocation(coords);
-        };
+    };
+    
+    function onSetPicSource(uri) {
+        setPicSource(uri);
+    };
 
         return (
             <View style={styles.createPosts}>
@@ -85,7 +89,7 @@ function CreatePostsScreen() {
                                 <View style={styles.createPosts__download}>
                                     <View
                                         style={styles.createPosts__containerImg}>
-                                        <ComponentCamera />
+                                        <ComponentCamera onPictureTaken={onSetPicSource} />
                                     </View>
                                     <Text style={styles.createPosts__downloadText}>Завантажте фото</Text>
                                 </View>

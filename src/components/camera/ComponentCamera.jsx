@@ -5,7 +5,7 @@ import * as MediaLibrary from "expo-media-library";
 import { Ionicons } from '@expo/vector-icons';
 import IconCamera from "../icons/IconCamera";
 
-function ComponentCamera() { 
+function ComponentCamera({ onPictureTaken }) { 
     const [hasPermission, setHasPermission] = useState(null);
     const [cameraRef, setCameraRef] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
@@ -40,6 +40,7 @@ function ComponentCamera() {
                 if (cameraRef) {
                     const { uri } = await cameraRef.takePictureAsync();
                     await MediaLibrary.createAssetAsync(uri);
+                    onPictureTaken(uri);
                 }
             }}
             >
