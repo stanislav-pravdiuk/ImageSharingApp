@@ -7,6 +7,7 @@ import {
     KeyboardAvoidingView,
     TouchableWithoutFeedback,
     Keyboard,
+    Image
 } from 'react-native';
 import MapPin from '../components/icons/IconMapPin';
 import ButtonTrash from '../components/buttons/ButtonTrash';
@@ -14,6 +15,7 @@ import ComponentCamera from '../components/camera/ComponentCamera';
 import { useEffect, useState } from 'react';
 import * as Location from "expo-location";
 import { useNavigation } from '@react-navigation/native';
+
 
 function CreatePostsScreen() {
         
@@ -55,16 +57,19 @@ function CreatePostsScreen() {
 
     function checkButtonDisabled() {
 
-        return picTitle === '' || locationTitle === '';
+        return picTitle === '' || locationTitle === '' || picSource=== '';
     };
 
     async function getLocation() {
-        let { status } = await Location.requestPermissionsAsync();
+
+        let { status } = await Location.requestForegroundPermissionsAsync();
+
             if (status !== "granted") {
                 console.log("Permission to access location was denied");
         };
 
         let location = await Location.getCurrentPositionAsync({});
+
             const coords = {
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude,
@@ -89,7 +94,10 @@ function CreatePostsScreen() {
                                 <View style={styles.createPosts__download}>
                                     <View
                                         style={styles.createPosts__containerImg}>
-                                        <ComponentCamera onPictureTaken={onSetPicSource} />
+                                    {picSource
+                                        ? <Image source={{uri: picSource}} />
+                                        : <ComponentCamera onPictureTaken={onSetPicSource} />
+                                    }
                                     </View>
                                     <Text style={styles.createPosts__downloadText}>Завантажте фото</Text>
                                 </View>
