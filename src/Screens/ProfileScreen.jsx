@@ -31,7 +31,7 @@ function ProfileScreen() {
     };
 
     function onMap() { 
-        navigation.navigate('MapScreen')
+        navigation.navigate('MapScreen',{latitude: 50.110132, longitude: 30.626496})
     };
 
     return (

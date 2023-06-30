@@ -100,9 +100,23 @@ function App() {
 
         <MainStack.Screen
           name="MapScreen"
-          // options={{
-          //   headerShown: false,
-          // }}
+          options={{
+            title: "Розташування",
+            headerTitleAlign: 'center',
+            tabBarStyle: { display: 'none'},
+            headerTitleStyle: {
+              fontWeight: '500',
+              fontSize: 17,
+              color: '#212121',
+            },
+            headerLeftContainerStyle: {
+              marginLeft: 10,
+            },
+            headerStyle: {
+              borderBottomColor: '#E5E5E5',
+              borderBottomWidth: 0.5,
+            },
+          }}
         >{() => <MapScreen />}
         </MainStack.Screen>
 
