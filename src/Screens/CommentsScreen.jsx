@@ -8,10 +8,12 @@ import {
     TouchableWithoutFeedback,
     KeyboardAvoidingView,
     Keyboard,
+    ScrollView,
 } from 'react-native';
 import avatar from '../images/avatar.jpg';
 import user from '../images/user.jpg';
-import ButtonSend from '../components/buttons/ButtonSend'
+import ButtonSend from '../components/buttons/ButtonSend';
+import sunset from '../images/sunset.jpg';
 
 
 function CommentsScreen() {
@@ -29,23 +31,25 @@ function CommentsScreen() {
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}
-            keyboardVerticalOffset={60}
+            keyboardVerticalOffset={176}
         >                
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View
+        <ScrollView
         style={{
             flex: 1,
-            alignItems: 'center',
+            // alignItems: 'center',
             width: '100%',
-            height: '100%',
-            justifyContent: 'center',
-            top: -100,
+            // height: 400,
+            // justifyContent: 'center',
+            // borderWidth:1
         }}>
             <View style={styles.commentsScreen__form}>
                 <View style={styles.commentsScreen__comments}>
                     <View
                         style={styles.commentsScreen__containerImg}>
-                        <Image style={styles.commentsScreen__img} />
+                        <Image
+                            source={sunset}
+                            style={styles.commentsScreen__img} />
                     </View>
                 </View>
             </View>
@@ -97,24 +101,24 @@ function CommentsScreen() {
                     </View>
                 </View>
             </View>
-            <View style={styles.commentsScreen__tabBar}>
-                <TextInput
-                    // value={login}
-                    // onChangeText={setLogin}
-                    style={styles.commentsScreen__input}
-                    placeholder='Коментувати...'
-                    placeholderTextColor='#BDBDBD'
-                    />
-                <TouchableOpacity
-                    onPress={onPost}
-                    style={styles.commentsScreen__btnSendContainer}
-                >
-                    <ButtonSend/>
-                </TouchableOpacity>
-                </View>
-            </View>            
-        </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+        </ScrollView>            
+    </TouchableWithoutFeedback>
+</KeyboardAvoidingView>
+    <View style={styles.commentsScreen__tabBar}>
+        <TextInput
+            // value={login}
+            // onChangeText={setLogin}
+            style={styles.commentsScreen__input}
+                placeholder='Коментувати...'
+            placeholderTextColor='#BDBDBD'
+            />
+        <TouchableOpacity
+            onPress={onPost}
+            style={styles.commentsScreen__btnSendContainer}
+        >
+            <ButtonSend/>
+        </TouchableOpacity>
+    </View>
 </View>
     );
 };
@@ -143,8 +147,9 @@ const styles = StyleSheet.create({
     },
     commentsScreen__commentsBox: {
         marginTop: 32,
-        width: 343,
-        maxHeighteight: 323,
+        width: '100%',
+        height: '100%',
+        // borderWidth:1
     },
         commentsScreen__comment: {
         flexDirection: 'row',
@@ -208,9 +213,8 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        // paddingTop: 16,
         position: 'absolute',
-        bottom: -100,
+        bottom: -16,
     },
     commentsScreen__input: {
         backgroundColor: '#E8E8E8',
@@ -219,7 +223,6 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 25,
         padding: 16,
-        marginTop: 17,
     },
     commentsScreen__btnSendContainer: {
         top: -42,
