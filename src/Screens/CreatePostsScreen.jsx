@@ -15,6 +15,7 @@ import ComponentCamera from '../components/camera/ComponentCamera';
 import { useEffect, useState } from 'react';
 import * as Location from "expo-location";
 import { useNavigation } from '@react-navigation/native';
+import IconCamera from '../components/icons/IconCamera';
 
 function CreatePostsScreen() {
         
@@ -22,7 +23,7 @@ function CreatePostsScreen() {
     const [picTitle, setPicTitle] = useState('');
     const [locationTitle, setLocationTitle] = useState('');
     const [location, setLocation] = useState('');
-    const [picSource, setPicSource] = useState('')
+    const [picSource, setPicSource] = useState('file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FAwesomeProject-70c9be09-01b5-47a6-bf0c-8b4dc8c6dc2a/Camera/cca3adae-8c10-4c3b-a5fb-88b09d93c44a.jpg')
     const navigation = useNavigation('');
 
     useEffect(() => { 
@@ -87,7 +88,28 @@ function CreatePostsScreen() {
                                     <View
                                         style={styles.createPosts__containerImg}>
                                     {picSource
-                                        ? <Image source={{uri: picSource}} />
+                                        ? <View
+                                            style={{
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                            }}>
+                                            <Image
+                                                style={{ width: 343, height: 240, }}
+                                                source={{ uri: picSource }}
+                                            />
+                                            <TouchableOpacity
+                                                onPress={resetState}
+                                                style={{
+                                                    width: 60,
+                                                    height: 60,
+                                                    Radius: 100,
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    position:'absolute'
+                                            }}>
+                                                <IconCamera />
+                                            </TouchableOpacity> 
+                                        </View>
                                         : <ComponentCamera onPictureTaken={onSetPicSource} />
                                     }
                                     </View>
