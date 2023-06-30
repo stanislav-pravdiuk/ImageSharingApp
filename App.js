@@ -11,6 +11,10 @@ import CommentsScreen from './src/Screens/CommentsScreen';
 import ProfileScreen from './src/Screens/ProfileScreen';
 import Home from './src/Screens/Home.jsx'
 import MapScreen from './src/Screens/MapScreen';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from 'react-redux';
+import { store } from './src/redux/store';
+import { persistor } from './src/redux/store';
 
 const MainStack = createStackNavigator();
 
@@ -26,6 +30,8 @@ function App() {
   }
 
   return (
+<Provider store={store}>
+  <PersistGate loading='null' persistor={persistor}>
     <NavigationContainer>
       <MainStack.Navigator initialRouteName="LoginScreen">
         <MainStack.Screen
@@ -122,6 +128,8 @@ function App() {
 
       </MainStack.Navigator>
     </NavigationContainer>
+  </PersistGate>
+</Provider>        
   );
 };
 
