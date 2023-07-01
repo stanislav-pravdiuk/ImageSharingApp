@@ -3,26 +3,26 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from 'expo-font';
-import RegistrationScreen from './src/Screens/RegistrationScreen';
-import LoginScreen from './src/Screens/LoginScreen';
-import PostsScreen from './src/Screens/PostsScreen.jsx'
-import CreatePostsScreen from './src/Screens/CreatePostsScreen';
-import CommentsScreen from './src/Screens/CommentsScreen';
-import ProfileScreen from './src/Screens/ProfileScreen';
-import Home from './src/Screens/Home.jsx'
-import MapScreen from './src/Screens/MapScreen';
+import RegistrationScreen from './Screens/RegistrationScreen';
+import LoginScreen from './Screens/LoginScreen';
+import PostsScreen from './Screens/PostsScreen.jsx'
+import CreatePostsScreen from './Screens/CreatePostsScreen';
+import CommentsScreen from './Screens/CommentsScreen';
+import ProfileScreen from './Screens/ProfileScreen';
+import Home from './Screens/Home.jsx'
+import MapScreen from './Screens/MapScreen';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
-import { store } from './src/redux/store';
-import { persistor } from './src/redux/store';
+import { store } from './redux/store';
+import { persistor } from './redux/store';
 
 const MainStack = createStackNavigator();
 
 function App() {
 
   const [fontsLoaded] = useFonts({
-    'RobotoMedium': require('./assets/fonts/Roboto-Medium.ttf'),
-    'RobotoRegular': require('./assets/fonts/Roboto-Regular.ttf')
+    'RobotoMedium': require('../assets/fonts/Roboto-Medium.ttf'),
+    'RobotoRegular': require('../assets/fonts/Roboto-Regular.ttf')
   });
 
   if (!fontsLoaded) {
@@ -31,7 +31,7 @@ function App() {
 
   return (
 <Provider store={store}>
-  <PersistGate loading='null' persistor={persistor}>
+  <PersistGate persistor={persistor}>
     <NavigationContainer>
       <MainStack.Navigator initialRouteName="LoginScreen">
         <MainStack.Screen
@@ -125,11 +125,10 @@ function App() {
           }}
         >{() => <MapScreen />}
         </MainStack.Screen>
-
       </MainStack.Navigator>
     </NavigationContainer>
-  </PersistGate>
-</Provider>        
+</PersistGate>
+</Provider>      
   );
 };
 
