@@ -13,9 +13,19 @@ import { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import Background from '../components/background/Background';
 import ButtonAddAvatar from '../components/buttons/ButtonAddAvatar';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../redux/auth/authOperations';
+import { useSelector } from "react-redux";
 
 function RegistrationScreen() {
 
+    const { user, error, loading } = useSelector(state => state.auth)
+
+    console.log(`есть токен ${user},
+    ошибка ${error}, 
+    загрузка ${loading}`)
+
+    const dispatch = useDispatch();
     const navigation = useNavigation();
     const [login, setLogin] = useState('');
     const [email, setEmail] = useState('');
@@ -23,16 +33,18 @@ function RegistrationScreen() {
     const [showPassword, setShowPassword] = useState(false);
 
     function onRegistration() {
-        console.log(`this is state:
-        Login => ${login},
-        Email => ${email},
-        Password => ${password}`);
 
-        setEmail('');
-        setLogin('');
-        setPassword('');
-        setShowPassword('');
-        navigation.navigate("Home")
+        dispatch(registerUser({ email, password }))
+            .then(() => {
+                setEmail('');
+                setLogin('');
+                setPassword('');
+                setShowPassword('');
+                navigation.navigate("Home",{login});
+            })
+            .catch((error) => {
+                alert('Registration failed:', error);
+            });
     };
 
     function onView() {

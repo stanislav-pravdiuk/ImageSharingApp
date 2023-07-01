@@ -15,6 +15,7 @@ import authReducer from './auth/authOperations';
 const authPersistConfig = {
     key: 'auth',
     storage: AsyncStorage,
+    // whitelist: ['user']
 };
 
 export const store = configureStore({
