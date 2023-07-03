@@ -10,12 +10,15 @@ import user from '../images/user.jpg';
 import forest from '../images/forest.png';
 import sunset from '../images/sunset.jpg';
 import house from '../images/house.jpg';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import IconChat from '../components/icons/IconChat';
 import IconMapPin from '../components/icons/IconMapPin';
 
 function PostsScreen() {
     
+    const { params: { login } } = useRoute();
+    console.log(login)
+
     const navigation = useNavigation();
 
     function onComment() { 

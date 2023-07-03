@@ -40,7 +40,7 @@ function RegistrationScreen() {
                 setLogin('');
                 setPassword('');
                 setShowPassword('');
-                navigation.navigate("Home",{login});
+                navigation.navigate("PostsScreen", { login: login });
             })
             .catch((error) => {
                 alert('Registration failed:', error);
