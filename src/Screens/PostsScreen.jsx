@@ -15,9 +15,6 @@ import IconChat from '../components/icons/IconChat';
 import IconMapPin from '../components/icons/IconMapPin';
 
 function PostsScreen() {
-    
-    const { params: { login } } = useRoute();
-    console.log(login)
 
     const navigation = useNavigation();
 

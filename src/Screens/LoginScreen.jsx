@@ -22,10 +22,6 @@ function LoginScrin() {
     const [showPassword, setShowPassword] = useState(false);
     
     function onLogin() { 
-        console.log(`this is state: 
-        Email => ${email},
-        Password => ${password}`);
-
         setEmail('');
         setPassword('');
         setPassword('');

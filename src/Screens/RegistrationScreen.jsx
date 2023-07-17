@@ -21,7 +21,7 @@ function RegistrationScreen() {
 
     const { user, error, loading } = useSelector(state => state.auth)
 
-    console.log(`есть токен ${user},
+    console.log(`user ${user},
     ошибка ${error}, 
     загрузка ${loading}`)
 
@@ -36,11 +36,11 @@ function RegistrationScreen() {
 
         dispatch(registerUser({ email, password }))
             .then(() => {
+                navigation.navigate("Home");
                 setEmail('');
                 setLogin('');
                 setPassword('');
                 setShowPassword('');
-                navigation.navigate("PostsScreen", { login: login });
             })
             .catch((error) => {
                 alert('Registration failed:', error);
