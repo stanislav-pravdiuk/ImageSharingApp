@@ -12,26 +12,29 @@ import {
 import { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from 'react-redux';
-import { useSelector } from "react-redux";
+import { authSignUpUser } from '../redux/auth/authOperations';
 import Background from '../components/background/Background';
 import ButtonAddAvatar from '../components/buttons/ButtonAddAvatar';
 
+const initialState = {
+    email: "",
+    password: "",
+    nickname: "",
+};
+
 function RegistrationScreen() {
-
-    const { user, error, loading } = useSelector(state => state.auth)
-
-    console.log(`user ${user},
-    ошибка ${error}, 
-    загрузка ${loading}`)
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const [login, setLogin] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [state, setstate] = useState(initialState);
     const [showPassword, setShowPassword] = useState(false);
 
     function onRegistration() {
+
+        // console.log(state)
+        dispatch(authSignUpUser(state));
+        setstate(initialState);
+
 
         // dispatch(registerUser({ email, password }))
         //     .then(() => {
@@ -79,22 +82,28 @@ function RegistrationScreen() {
                         </View>
                         <Text style={styles.reg__title}>Реєстрація</Text>
                         <TextInput
-                            value={login}
-                            onChangeText={setLogin}
+                            value={state.nickname}
+                            onChangeText={(value) =>
+                                setstate((prevState) => ({ ...prevState, nickname: value }))
+                            }
                             style={styles.reg__inputLog}
                             placeholder='Логін'
                             placeholderTextColor='#BDBDBD'
                         />
                         <TextInput
-                            value={email}
-                            onChangeText={setEmail}
+                            value={state.email}
+                            onChangeText={(value) =>
+                                setstate((prevState) => ({ ...prevState, email: value }))
+                            }
                             style={styles.reg__inputMail}
                             placeholder='Адреса електронної пошти'
                             placeholderTextColor='#BDBDBD'
                         />
                         <TextInput
-                            value={password}
-                            onChangeText={setPassword}
+                            value={state.password}
+                            onChangeText={(value) =>
+                                setstate((prevState) => ({ ...prevState, password: value }))
+                            }
                             secureTextEntry={!showPassword}
                             style={styles.reg__inputPass}
                             placeholder='Пароль'
