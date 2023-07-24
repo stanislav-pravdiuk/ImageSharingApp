@@ -11,11 +11,10 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from 'react-redux';
+import { useSelector } from "react-redux";
 import Background from '../components/background/Background';
 import ButtonAddAvatar from '../components/buttons/ButtonAddAvatar';
-import { useDispatch } from 'react-redux';
-import { registerUser } from '../redux/auth/authOperations';
-import { useSelector } from "react-redux";
 
 function RegistrationScreen() {
 
@@ -34,17 +33,17 @@ function RegistrationScreen() {
 
     function onRegistration() {
 
-        dispatch(registerUser({ email, password }))
-            .then(() => {
-                navigation.navigate("Home");
-                setEmail('');
-                setLogin('');
-                setPassword('');
-                setShowPassword('');
-            })
-            .catch((error) => {
-                alert('Registration failed:', error);
-            });
+        // dispatch(registerUser({ email, password }))
+        //     .then(() => {
+        //         navigation.navigate("Home");
+        //         setEmail('');
+        //         setLogin('');
+        //         setPassword('');
+        //         setShowPassword('');
+        //     })
+        //     .catch((error) => {
+        //         alert('Registration failed:', error);
+        //     });
     };
 
     function onView() {

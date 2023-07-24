@@ -1,8 +1,11 @@
-import 'react-native-gesture-handler';
-import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from 'expo-font';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+// import { persistor } from './redux/store';
+import React from "react";
 import RegistrationScreen from './Screens/RegistrationScreen';
 import LoginScreen from './Screens/LoginScreen';
 import PostsScreen from './Screens/PostsScreen.jsx'
@@ -11,10 +14,8 @@ import CommentsScreen from './Screens/CommentsScreen';
 import ProfileScreen from './Screens/ProfileScreen';
 import Home from './Screens/Home.jsx'
 import MapScreen from './Screens/MapScreen';
-import { PersistGate } from 'redux-persist/integration/react';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
-import { persistor } from './redux/store';
+import 'react-native-gesture-handler';
+
 
 const MainStack = createStackNavigator();
 
@@ -31,7 +32,7 @@ function App() {
 
   return (
 <Provider store={store}>
-  <PersistGate persistor={persistor}>
+  {/* <PersistGate persistor={persistor}> */}
     <NavigationContainer>
       <MainStack.Navigator initialRouteName="LoginScreen">
         <MainStack.Screen
@@ -127,7 +128,7 @@ function App() {
         </MainStack.Screen>
       </MainStack.Navigator>
     </NavigationContainer>
-</PersistGate>
+{/* </PersistGate> */}
 </Provider>      
   );
 };
