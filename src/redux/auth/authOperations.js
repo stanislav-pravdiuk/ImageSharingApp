@@ -7,15 +7,25 @@ import {
     signOut,
 } from 'firebase/auth';
 import { auth, db } from '../../firebase/config';
+import { authSlice } from './authReducer'
 
 export const authSignUpUser = ({ email, password, nickname }) => async (
     dispatch,
     getState
 ) => {
     try {
-        const user = await createUserWithEmailAndPassword(auth, email, password);
+        await createUserWithEmailAndPassword(auth, email, password);
+        const user = await auth.currentUser;
+        await updateProfile(user,{
+            displayName: nickname
+        });
+        const { displayName, uid } = user;
+        const updatedProfile = {
+            nickname: displayName,
+            userId: uid
+        };
+        dispatch(authSlice.actions.updateUserProfile(updatedProfile));
 
-        console.log("user", user);
     } catch (error) {
         console.log("error", error);
 
@@ -36,6 +46,10 @@ export const authSignInUser = ({ email, password }) => async (dispatch, getState
 };
 
 export const authSignOutUser = () => async (dispatch, getSatte) => { };
+
+export const authStateChangeUser = () => async (dispatch, getSatte) => {
+    await auth.onAuthStateChanged((user) => setUser(user))
+};
 
 // user {
 //     "_tokenResponse": {
