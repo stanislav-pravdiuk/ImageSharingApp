@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar';
 import Background from '../components/background/Background';
 import { authSignInUser } from '../redux/auth/authOperations';
@@ -23,7 +23,7 @@ const initialState = {
 };
 
 function LoginScrin() {
-
+    const statet = useSelector((state) => console.log(state));
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [state, setstate] = useState(initialState);

@@ -7,7 +7,9 @@ import {
     signOut,
 } from 'firebase/auth';
 import { auth, db } from '../../firebase/config';
-import { authSlice } from './authReducer'
+import { authSlice } from './authReducer';
+
+const { updateUserProfile, authStateChange, authSignOut } = authSlice.actions;
 
 export const authSignUpUser = ({ email, password, nickname }) => async (
     dispatch,
@@ -24,7 +26,7 @@ export const authSignUpUser = ({ email, password, nickname }) => async (
             nickname: displayName,
             userId: uid
         };
-        dispatch(authSlice.actions.updateUserProfile(updatedProfile));
+        dispatch(updateUserProfile(updatedProfile));
 
     } catch (error) {
         console.log("error", error);
@@ -45,7 +47,16 @@ export const authSignInUser = ({ email, password }) => async (dispatch, getState
     }
 };
 
-export const authSignOutUser = () => async (dispatch, getSatte) => { };
+export const authSignOutUser = () => async (dispatch, getSatte) => {
+    try {
+        await signOut(auth);
+        dispatch(authSignOut());
+        console.log("Пользователь успешно вышел из системы.");
+    } catch (error) {
+        console.log("error", error);
+        console.log("error.message", error.message);
+    }
+};
 
 export const authStateChangeUser = () => async (dispatch, getSatte) => {
     await auth.onAuthStateChanged((user) => {
@@ -54,8 +65,8 @@ export const authStateChangeUser = () => async (dispatch, getSatte) => {
             nickname: user.displayName,
             userId: user.uid
         };
-            dispatch(authSlice.actions.updateUserProfile(updatedProfile));
-            dispatch(authSlice.actions.authStateChange({stateChange: true}));
+            dispatch(updateUserProfile(updatedProfile));
+            dispatch(authStateChange({stateChange: true}));
         }
     });
 };

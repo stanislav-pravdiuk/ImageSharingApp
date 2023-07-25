@@ -18,8 +18,8 @@ const MainStack = createStackNavigator();
 function Main() { 
     const dispatch = useDispatch();
     // const [user, setUser] = useState(null);
-    const {stateChange} = useSelector((state) => state.auth);
-    console.log(stateChange);
+    // const {stateChange} = useSelector((state) => state.auth);
+    // console.log(stateChange);
     useEffect(() => {
         dispatch(authStateChangeUser())
     }, []);
