@@ -30,23 +30,9 @@ function RegistrationScreen() {
     const [showPassword, setShowPassword] = useState(false);
 
     function onRegistration() {
-
-        // console.log(state)
         dispatch(authSignUpUser(state));
         setstate(initialState);
-
-
-        // dispatch(registerUser({ email, password }))
-        //     .then(() => {
-        //         navigation.navigate("Home");
-        //         setEmail('');
-        //         setLogin('');
-        //         setPassword('');
-        //         setShowPassword('');
-        //     })
-        //     .catch((error) => {
-        //         alert('Registration failed:', error);
-        //     });
+        navigation.navigate("Home");
     };
 
     function onView() {

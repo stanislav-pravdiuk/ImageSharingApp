@@ -11,21 +11,28 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar';
 import Background from '../components/background/Background';
+import { authSignInUser } from '../redux/auth/authOperations';
+
+
+const initialState = {
+    email: '',
+    password: '',
+};
 
 function LoginScrin() {
 
+    const dispatch = useDispatch();
     const navigation = useNavigation();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [state, setstate] = useState(initialState);
     const [showPassword, setShowPassword] = useState(false);
     
     function onLogin() { 
-        setEmail('');
-        setPassword('');
-        setPassword('');
+        dispatch(authSignInUser(state))
         navigation.navigate("Home")
+        setstate(initialState)
     };
 
     function onView() {
@@ -59,15 +66,19 @@ function LoginScrin() {
                         </View>
                         <Text style={styles.log__title}>Увійти</Text>
                         <TextInput
-                            value={email}
-                            onChangeText={setEmail}
+                            value={state.email}
+                            onChangeText={(value) =>
+                                setstate((prevState)=>({...prevState, email :value}))
+                            }
                             style={styles.log__inputMail}
                             placeholder='Адреса електронної пошти'
                             placeholderTextColor='#BDBDBD'
                         />
                         <TextInput
-                            value={password}
-                            onChangeText={setPassword}
+                            value={state.password}
+                            onChangeText={(value) =>
+                                setstate((prevState)=>({...prevState, password :value}))
+                            }
                             secureTextEntry={!showPassword}
                             style={styles.log__inputPass}
                             placeholder='Пароль'
