@@ -8,10 +8,22 @@ import CommentsScreen from '../Screens/CommentsScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
 import Home from '../Screens/Home.jsx'
 import MapScreen from '../Screens/MapScreen';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { authStateChangeUser } from "../redux/auth/authOperations";
 
 const MainStack = createStackNavigator();
 
 function Main() { 
+    const dispatch = useDispatch();
+    // const [user, setUser] = useState(null);
+    const {stateChange} = useSelector((state) => state.auth);
+    console.log(stateChange);
+    useEffect(() => {
+        dispatch(authStateChangeUser())
+    }, []);
+
     return (
         <NavigationContainer>
             <MainStack.Navigator initialRouteName="LoginScreen">
