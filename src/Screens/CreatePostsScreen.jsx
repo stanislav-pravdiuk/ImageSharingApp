@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import * as Location from "expo-location";
 import { useNavigation } from '@react-navigation/native';
 import IconCamera from '../components/icons/IconCamera';
+import { db, storage, auth } from '../firebase/config'
 
 function CreatePostsScreen() {
         
@@ -23,8 +24,8 @@ function CreatePostsScreen() {
     const [picTitle, setPicTitle] = useState('');
     const [locationTitle, setLocationTitle] = useState('');
     const [location, setLocation] = useState('');
-    const [picSource, setPicSource] = useState('file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FAwesomeProject-70c9be09-01b5-47a6-bf0c-8b4dc8c6dc2a/Camera/cca3adae-8c10-4c3b-a5fb-88b09d93c44a.jpg')
-    const navigation = useNavigation('');
+    const [picSource, setPicSource] = useState('')
+    const navigation = useNavigation();
 
     useEffect(() => { 
         setIsButtonDisabled(checkButtonDisabled())
@@ -47,16 +48,29 @@ function CreatePostsScreen() {
     }, []);
 
     function onPublik() {
+        
         console.log(`
         name - ${picTitle},
         place - ${locationTitle},
-        coords - ${location},
+        coords - ${location.latitude}, ${location.longitude}
         image - ${picSource}
         `);
 
-        resetState()
+        uploadPhotoToServer();
+
+        // resetState()
         
-        navigation.navigate('PostsScreen');
+        // navigation.navigate('PostsScreen');
+    };
+
+    const uploadPhotoToServer = async () => {
+        const response = await fetch(picSource);
+        const file = await response.blob();
+
+        const uniquePostId = Date.now().toString();
+
+        const data = await storage.ref(`postImage/${uniquePostId}`).put(file);
+        console.log("data", data);
     };
 
     function resetState() { 
@@ -73,6 +87,7 @@ function CreatePostsScreen() {
     
     function onSetPicSource(uri) {
         setPicSource(uri);
+        console.log(uri)
     };
 
         return (
