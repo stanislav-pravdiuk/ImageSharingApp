@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react';
 import * as Location from "expo-location";
 import { useNavigation } from '@react-navigation/native';
 import IconCamera from '../components/icons/IconCamera';
-import { db, storage, auth } from '../firebase/config';
+import { storage } from '../firebase/config';
 import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage"
 
 function CreatePostsScreen() {
@@ -50,12 +50,12 @@ function CreatePostsScreen() {
 
     function onPublik() {
         
-        console.log(`
-        name - ${picTitle},
-        place - ${locationTitle},
-        coords - ${location.latitude}, ${location.longitude}
-        image - ${picSource}
-        `);
+        // console.log(`
+        // name - ${picTitle},
+        // place - ${locationTitle},
+        // coords - ${location.latitude}, ${location.longitude}
+        // image - ${picSource}
+        // `);
 
         uploadPhotoToServer();
 
@@ -68,20 +68,34 @@ function CreatePostsScreen() {
         const response = await fetch(picSource);
         const file = await response.blob();
         const uniquePostId = Date.now().toString();
-        const storageRef = ref(storage, `/postImage/${uniquePostId}`)
+        const storageRef = ref(storage, `/postImage/${uniquePostId}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
+
+        // Отслеживание прогресса загрузки (если необходимо)
         uploadTask.on(
-        "state_changed",
-            (err) => console.log("error log", err),
+            "state_changed",
+            (snapshot) => {
+                // Вы можете добавить обработчик для отслеживания прогресса загрузки
+                // snapshot.bytesTransferred - количество байт, уже загруженных на сервер
+                // snapshot.totalBytes - общее количество байт, которое нужно загрузить
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log(`Upload progress: ${progress}%`);
+            },
+            (error) => {
+                // Обработка ошибок загрузки, если произошла
+                console.error("Error during upload:", error);
+            },
             () => {
-                // download url
-                getDownloadURL(uploadTask.snapshot.ref)
-                    .then((url) => {
-                    console.log("image log", url);
+                // Успешная загрузка
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    console.log("File available at", downloadURL);
+                    // Вы можете использовать полученную ссылку на фото для дальнейших действий
+                    // Например, сохранить ее в базе данных или отобразить на странице
                 });
             }
         );
     };
+
 
     function resetState() { 
         setPicTitle('');
