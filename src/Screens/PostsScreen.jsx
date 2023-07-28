@@ -6,23 +6,44 @@ import {
     ScrollView,
     TouchableOpacity,
 } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+import { db } from '../firebase/config';
+import { collection, getDocs } from 'firebase/firestore';
 import user from '../images/user.jpg';
 import forest from '../images/forest.png';
 import sunset from '../images/sunset.jpg';
 import house from '../images/house.jpg';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import IconChat from '../components/icons/IconChat';
 import IconMapPin from '../components/icons/IconMapPin';
 
 function PostsScreen() {
 
+    const [posts, setPosts] = useState([]);
     const navigation = useNavigation();
+
+    useEffect(() => {
+        const getAllPost = async () => {
+            try {
+                const snapshot = await getDocs(collection(db, 'posts'));
+                const postsData = snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
+                setPosts(postsData);
+            } catch (error) {
+                console.log(error);
+                throw error;
+            }
+        };
+
+        getAllPost();
+    }, []);
+
+    console.log("proverka poluch", posts);
 
     function onComment() { 
         navigation.navigate('CommentsScreen')
     };
 
-        function onLike() { 
+    function onLike() { 
         console.log('добавит лайк')
     };
 
@@ -47,66 +68,29 @@ function PostsScreen() {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={styles.profile__postsContainer}>
-                <View style={styles.profile__postBox}>
-                    <View style={styles.profile__image}>
-                        <Image source={forest}/>
-                    </View>
-                    <Text style={styles.profile__text}>Ліс</Text>
-                    <View style={styles.profile__stat}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                {posts.map((post) => (
+                    <View key={post.id} style={styles.profile__postBox}>
+                        <View style={styles.profile__image}>
+                            <Image source={{ uri: post.data.downloadURL }}
+                            style={{width: '100%', height: 400}}/>
+                        </View>
+                        <Text style={styles.profile__text}>{post.data.picTitle}</Text>
+                        <View style={styles.profile__stat}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <TouchableOpacity
+                                onPress={onComment}>
+                                <IconChat/>
+                            </TouchableOpacity>                            
+                            <Text style={styles.profile__Qty}>8</Text></View>
                             <TouchableOpacity
-                            onPress={onComment}>
-                            <IconChat/>
-                        </TouchableOpacity>                            
-                        <Text style={styles.profile__Qty}>8</Text></View>
-                        <TouchableOpacity
-                            onPress={onMap}
-                            style={styles.profile__navi}>
-                            <IconMapPin/>
-                            <Text style={styles.profile__textNavi}>Ukraine</Text>
-                        </TouchableOpacity>
+                                onPress={onMap}
+                                style={styles.profile__navi}>
+                                <IconMapPin/>
+                                <Text style={styles.profile__textNavi}>{post.data.locationTitle}</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-                <View style={styles.profile__postBox}>
-                    <View style={styles.profile__image}>
-                        <Image source={sunset}/>
-                    </View>
-                    <Text style={styles.profile__text}>Захід на чорному морі</Text>
-                    <View style={styles.profile__stat}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <TouchableOpacity
-                            onPress={onComment}>
-                            <IconChat/>
-                        </TouchableOpacity>                            
-                        <Text style={styles.profile__Qty}>3</Text></View>
-                        <TouchableOpacity
-                            onPress={onMap}
-                            style={styles.profile__navi}>
-                            <IconMapPin/>
-                            <Text style={styles.profile__textNavi}>Ukraine</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={styles.profile__postBox}>
-                    <View style={styles.profile__image}>
-                        <Image source={house}/>
-                    </View>
-                    <Text style={styles.profile__text}>Старий будиночок у Венеції</Text>
-                    <View style={styles.profile__stat}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <TouchableOpacity
-                            onPress={onComment}>
-                            <IconChat/>
-                        </TouchableOpacity>                            
-                        <Text style={styles.profile__Qty}>50</Text></View>
-                        <TouchableOpacity
-                            onPress={onMap}
-                            style={styles.profile__navi}>
-                            <IconMapPin/>
-                            <Text style={styles.profile__textNavi}>Italy</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                ))}
             </ScrollView>
         </View>
     );
