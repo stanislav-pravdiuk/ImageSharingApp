@@ -16,7 +16,8 @@ import { useEffect, useState } from 'react';
 import * as Location from "expo-location";
 import { useNavigation } from '@react-navigation/native';
 import IconCamera from '../components/icons/IconCamera';
-import { db, storage, auth } from '../firebase/config'
+import { db, storage, auth } from '../firebase/config';
+import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage"
 
 function CreatePostsScreen() {
         
@@ -66,11 +67,20 @@ function CreatePostsScreen() {
     const uploadPhotoToServer = async () => {
         const response = await fetch(picSource);
         const file = await response.blob();
-
         const uniquePostId = Date.now().toString();
-
-        const data = await storage.ref(`postImage/${uniquePostId}`).put(file);
-        console.log("data", data);
+        const storageRef = ref(storage, `/postImage/${uniquePostId}`)
+        const uploadTask = uploadBytesResumable(storageRef, file);
+        uploadTask.on(
+        "state_changed",
+            (err) => console.log("error log", err),
+            () => {
+                // download url
+                getDownloadURL(uploadTask.snapshot.ref)
+                    .then((url) => {
+                    console.log("image log", url);
+                });
+            }
+        );
     };
 
     function resetState() { 
