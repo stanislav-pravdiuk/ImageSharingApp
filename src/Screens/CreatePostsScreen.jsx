@@ -1,3 +1,9 @@
+import { storage, db } from '../firebase/config';
+import { collection, addDoc } from "firebase/firestore";
+import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage"
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
     TextInput,
     StyleSheet,
@@ -9,15 +15,11 @@ import {
     Keyboard,
     Image
 } from 'react-native';
+import * as Location from "expo-location";
 import MapPin from '../components/icons/IconMapPin';
 import ButtonTrash from '../components/buttons/ButtonTrash';
 import ComponentCamera from '../components/camera/ComponentCamera';
-import { useEffect, useState } from 'react';
-import * as Location from "expo-location";
-import { useNavigation } from '@react-navigation/native';
 import IconCamera from '../components/icons/IconCamera';
-import { storage } from '../firebase/config';
-import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage"
 
 function CreatePostsScreen() {
         
@@ -25,8 +27,11 @@ function CreatePostsScreen() {
     const [picTitle, setPicTitle] = useState('');
     const [locationTitle, setLocationTitle] = useState('');
     const [location, setLocation] = useState('');
-    const [picSource, setPicSource] = useState('')
-    const navigation = useNavigation();
+    const [picSource, setPicSource] = useState('');
+
+    const navigation = useNavigation('');
+
+    const { userId, nickname } = useSelector((state) => state.auth);
 
     useEffect(() => { 
         setIsButtonDisabled(checkButtonDisabled())
@@ -49,19 +54,26 @@ function CreatePostsScreen() {
     }, []);
 
     function onPublik() {
-        
-        // console.log(`
-        // name - ${picTitle},
-        // place - ${locationTitle},
-        // coords - ${location.latitude}, ${location.longitude}
-        // image - ${picSource}
-        // `);
-
         uploadPhotoToServer();
+        navigation.navigate('PostsScreen');
+        resetState();
+    };
 
-        // resetState()
-        
-        // navigation.navigate('PostsScreen');
+    const uploadPostToServer = async (downloadURL) => {
+        try {
+                const docRef = await addDoc(collection(db, 'posts'), {
+                    picTitle,
+                    locationTitle,
+                    location,
+                    userId,
+                    nickname,
+                    downloadURL
+                });
+                console.log('Document written with ID: ', docRef.id);
+            } catch (e) {
+                console.error('Error adding document: ', e);
+                throw e;
+            }
     };
 
     const uploadPhotoToServer = async () => {
@@ -70,27 +82,18 @@ function CreatePostsScreen() {
         const uniquePostId = Date.now().toString();
         const storageRef = ref(storage, `/postImage/${uniquePostId}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
-
-        // Отслеживание прогресса загрузки (если необходимо)
         uploadTask.on(
             "state_changed",
             (snapshot) => {
-                // Вы можете добавить обработчик для отслеживания прогресса загрузки
-                // snapshot.bytesTransferred - количество байт, уже загруженных на сервер
-                // snapshot.totalBytes - общее количество байт, которое нужно загрузить
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 console.log(`Upload progress: ${progress}%`);
             },
             (error) => {
-                // Обработка ошибок загрузки, если произошла
                 console.error("Error during upload:", error);
             },
             () => {
-                // Успешная загрузка
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log("File available at", downloadURL);
-                    // Вы можете использовать полученную ссылку на фото для дальнейших действий
-                    // Например, сохранить ее в базе данных или отобразить на странице
+                    uploadPostToServer(downloadURL)
                 });
             }
         );
@@ -111,7 +114,6 @@ function CreatePostsScreen() {
     
     function onSetPicSource(uri) {
         setPicSource(uri);
-        console.log(uri)
     };
 
         return (
