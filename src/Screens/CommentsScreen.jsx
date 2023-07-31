@@ -14,16 +14,41 @@ import avatar from '../images/avatar.jpg';
 import user from '../images/user.jpg';
 import ButtonSend from '../components/buttons/ButtonSend';
 import sunset from '../images/sunset.jpg';
+import { useRoute } from '@react-navigation/native';
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from '../firebase/config';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 
 function CommentsScreen() {
 
-    function onBack() {
-        console.log('клик будет возвращать назад');
-    };
+    [comment, setComment] = useState('');
 
-    function onPost() { 
-        console.log('клик постит публикацию и какойто пост запрос наверное делает)))))')
+    const { params } = useRoute();
+    const { nickname } = useSelector((state) => state.auth);
+
+    const onPost = async () => {
+
+        try {
+            const postId = params && params.postId;
+            if (!postId) {
+                console.log('postId отсутствует в params');
+                return;
+            }
+
+            const ref = doc(db, 'posts', postId);
+
+            await updateDoc(ref, {
+                nickname,
+                comment
+            });
+            console.log("документ обновлен");
+        } catch (error) {
+            console.log(error);
+        };
+
+        setComment('')
     };
 
     return (
@@ -106,10 +131,10 @@ function CommentsScreen() {
 </KeyboardAvoidingView>
     <View style={styles.commentsScreen__tabBar}>
         <TextInput
-            // value={login}
-            // onChangeText={setLogin}
+            value={comment}
+            onChangeText={setComment}
             style={styles.commentsScreen__input}
-                placeholder='Коментувати...'
+            placeholder='Коментувати...'
             placeholderTextColor='#BDBDBD'
             />
         <TouchableOpacity

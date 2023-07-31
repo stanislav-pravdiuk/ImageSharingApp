@@ -11,15 +11,16 @@ import { useEffect, useState } from 'react';
 import { db } from '../firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
 import user from '../images/user.jpg';
-import forest from '../images/forest.png';
-import sunset from '../images/sunset.jpg';
-import house from '../images/house.jpg';
 import IconChat from '../components/icons/IconChat';
 import IconMapPin from '../components/icons/IconMapPin';
+import { useSelector } from 'react-redux';
 
 function PostsScreen() {
 
     const [posts, setPosts] = useState([]);
+
+    const { nickname } = useSelector((state) => state.auth);
+
     const navigation = useNavigation();
 
     useEffect(() => {
@@ -37,18 +38,16 @@ function PostsScreen() {
         getAllPost();
     }, []);
 
-    console.log("proverka poluch", posts);
-
-    function onComment() { 
-        navigation.navigate('CommentsScreen')
+    function onComment(id) { 
+        navigation.navigate('CommentsScreen', { postId: id})
     };
 
-    function onLike() { 
-        console.log('добавит лайк')
-    };
-
-    function onMap() { 
-        navigation.navigate('MapScreen',{latitude: 50.110132, longitude: 30.626496})
+    function onMap(location) { 
+        if (!location) {
+            alert('not coords')
+            return
+        }
+        navigation.navigate('MapScreen',{latitude: location.latitude, longitude: location.longitude})
     };
 
     return (
@@ -61,7 +60,7 @@ function PostsScreen() {
                     />
                 </View>
                 <View style={styles.posts__UserData}>
-                    <Text style={styles.posts__UserName}>Natali Romanova</Text>
+                    <Text style={styles.posts__UserName}>{nickname}</Text>
                     <Text style={styles.posts__UserEmail}>email@example.com</Text>
                 </View>
             </View>    
@@ -72,18 +71,18 @@ function PostsScreen() {
                     <View key={post.id} style={styles.profile__postBox}>
                         <View style={styles.profile__image}>
                             <Image source={{ uri: post.data.downloadURL }}
-                            style={{width: '100%', height: 400}}/>
+                            style={{width: '100%', height: 450, resizeMode: 'contain', borderRadius: 8}}/>
                         </View>
                         <Text style={styles.profile__text}>{post.data.picTitle}</Text>
                         <View style={styles.profile__stat}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <TouchableOpacity
-                                onPress={onComment}>
+                                onPress={()=>onComment(post.id)}>
                                 <IconChat/>
                             </TouchableOpacity>                            
                             <Text style={styles.profile__Qty}>8</Text></View>
                             <TouchableOpacity
-                                onPress={onMap}
+                                onPress={()=>onMap(post.data.location)}
                                 style={styles.profile__navi}>
                                 <IconMapPin/>
                                 <Text style={styles.profile__textNavi}>{post.data.locationTitle}</Text>

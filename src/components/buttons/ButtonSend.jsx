@@ -1,18 +1,13 @@
 import { AntDesign } from '@expo/vector-icons';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 function ButtonSend() {
-
-    function onSend() { 
-        console.log('клик будет оправлять коммент')
-    };
     
     return (
-        <TouchableOpacity
-            onPress={onSend}
+        <View
             style={styles.iconContainer}>
-            <AntDesign name="arrowup" size={24} color="white" />
-        </TouchableOpacity>
+            <AntDesign name="arrowup" size={24} color="white"/>
+        </View>
     );
 };
 
