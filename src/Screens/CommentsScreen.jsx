@@ -79,7 +79,7 @@ function CommentsScreen() {
             console.log(error);
         }
     };
-
+// console.log(params.uri)
     return (
         <View style={styles.commentsScreen}>
             <KeyboardAvoidingView
@@ -102,8 +102,10 @@ function CommentsScreen() {
                                 <View
                                     style={styles.commentsScreen__containerImg}>
                                     <Image
-                                        source={sunset}
-                                        style={styles.commentsScreen__img} />
+                                        source={{ uri: params.uri }}
+                                        style={styles.commentsScreen__img}
+                                        // style={{width: 200, height: 200}}
+                                    />
                                 </View>
                             </View>
                         </View>
@@ -190,6 +192,9 @@ const styles = StyleSheet.create({
     },
     commentsScreen__img: {
         width: 343,
+        height: '100%',
+        resizeMode: 'cover',
+        borderRadius: 8,
     },
     commentsScreen__commentsBox: {
         marginTop: 32,

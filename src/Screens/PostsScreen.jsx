@@ -38,8 +38,8 @@ function PostsScreen() {
         getAllPost();
     }, []);
 
-    function onComment(id) { 
-        navigation.navigate('CommentsScreen', { postId: id})
+    function onComment(id, url) { 
+        navigation.navigate('CommentsScreen', { postId: id, uri: url })
     };
 
     function onMap(location) { 
@@ -77,7 +77,7 @@ function PostsScreen() {
                         <View style={styles.profile__stat}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <TouchableOpacity
-                                onPress={()=>onComment(post.id)}>
+                                onPress={()=>onComment(post.id, post.data.downloadURL)}>
                                 <IconChat/>
                             </TouchableOpacity>                            
                             <Text style={styles.profile__Qty}>8</Text></View>
