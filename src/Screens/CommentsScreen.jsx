@@ -125,11 +125,19 @@ function CommentsScreen() {
                                             />
                                         </View>
 
-                                        <View style={styles.commentsScreen__textBox}>
+                                        <View style={[
+                                            index % 2 === 0
+                                                ? styles.commentsScreen__textBoxEven
+                                                : styles.commentsScreen__textBox
+                                        ]}>
                                             <Text style={styles.commentsScreen__commentText}>
                                                 {comment.comment}
                                             </Text>
-                                            <Text style={styles.commentsScreen__commenDate}>
+                                            <Text style={[
+                                                index % 2 === 0
+                                                ? styles.commentsScreen__commentDateEven
+                                                : styles.commentsScreen__commentDate
+                                            ]}>
                                                 {comment.date} {/* Если у вас есть поле с датой комментария, используйте его */}
                                             </Text>
                                         </View>
@@ -235,13 +243,13 @@ const styles = StyleSheet.create({
         fontSize: 13,
         color: '#212121',
     },
-    commentsScreen__commenDate: {
+    commentsScreen__commentDate: {
         fontSize: 10,
         color: '#BDBDBD',
         marginTop: 8,
         marginLeft: 'auto',
     },
-        commentsScreen__commenDateEven: {
+        commentsScreen__commentDateEven: {
         fontSize: 10,
         color: '#BDBDBD',
         marginTop: 8,
