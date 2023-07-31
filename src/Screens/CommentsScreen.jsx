@@ -15,21 +15,28 @@ import user from '../images/user.jpg';
 import ButtonSend from '../components/buttons/ButtonSend';
 import sunset from '../images/sunset.jpg';
 import { useRoute } from '@react-navigation/native';
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, addDoc, collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase/config';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { format } from 'date-fns';
+import { uk } from 'date-fns/locale';
 
 
 function CommentsScreen() {
 
     [comment, setComment] = useState('');
+    [allComments, setAllComments] = useState('');
 
     const { params } = useRoute();
     const { nickname } = useSelector((state) => state.auth);
 
-    const onPost = async () => {
+    useEffect(() => { 
+        getAllComments();
+    },[]);
 
+    const onPost = async () => {
         try {
             const postId = params && params.postId;
             if (!postId) {
@@ -37,114 +44,120 @@ function CommentsScreen() {
                 return;
             }
 
-            const ref = doc(db, 'posts', postId);
+            const postRef = doc(db, 'posts', postId);
+            const commentsCollectionRef = collection(postRef, 'comments');
 
-            await updateDoc(ref, {
+            // Создаем новый документ с комментарием
+            await addDoc(commentsCollectionRef, {
                 nickname,
-                comment
+                comment,
+                date: format(new Date(), 'dd MMMM, yyyy | HH:mm', { locale: uk }),
             });
-            console.log("документ обновлен");
+            console.log("документ создан");
         } catch (error) {
             console.log(error);
-        };
+        }
 
-        setComment('')
+        setComment('');
+    };
+
+    const getAllComments = async () => {
+        try {
+            const postId = params && params.postId;
+            if (!postId) {
+                console.log('postId отсутствует в params');
+                return;
+            }
+
+            const postRef = doc(db, 'posts', postId);
+            const commentsCollectionRef = collection(postRef, 'comments');
+
+            const snapshot = await getDocs(commentsCollectionRef);
+            const commentsData = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            setAllComments(commentsData); // если вам нужно сохранить комментарии в состоянии компонента
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
-<View style={styles.commentsScreen}>
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.container}
-            keyboardVerticalOffset={176}
-        >                
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView
-        style={{
-            flex: 1,
-            // alignItems: 'center',
-            width: '100%',
-            // height: 400,
-            // justifyContent: 'center',
-            // borderWidth:1
-        }}>
-            <View style={styles.commentsScreen__form}>
-                <View style={styles.commentsScreen__comments}>
-                    <View
-                        style={styles.commentsScreen__containerImg}>
-                        <Image
-                            source={sunset}
-                            style={styles.commentsScreen__img} />
-                    </View>
-                </View>
+        <View style={styles.commentsScreen}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={styles.container}
+                keyboardVerticalOffset={176}
+            >
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <ScrollView
+                        style={{
+                            flex: 1,
+                            // alignItems: 'center',
+                            width: '100%',
+                            // height: 400,
+                            // justifyContent: 'center',
+                            // borderWidth:1
+                        }}>
+                        <View style={styles.commentsScreen__form}>
+                            <View style={styles.commentsScreen__comments}>
+                                <View
+                                    style={styles.commentsScreen__containerImg}>
+                                    <Image
+                                        source={sunset}
+                                        style={styles.commentsScreen__img} />
+                                </View>
+                            </View>
+                        </View>
+                        
+                        <View style={styles.commentsScreen__commentsBox}>
+                            {allComments.length > 0 ? (
+                                allComments.map((comment, index) => (
+                                    <View
+                                        key={comment.id}
+                                        style={[
+                                            index % 2 === 0
+                                                ? styles.commentsScreen__commentEven
+                                                : styles.commentsScreen__comment
+                                        ]}>
+                                        <View style={styles.commentsScreen__avatarBox}>
+                                            <Image
+                                                style={styles.commentsScreen__avatar}
+                                                source={avatar}
+                                            />
+                                        </View>
+
+                                        <View style={styles.commentsScreen__textBox}>
+                                            <Text style={styles.commentsScreen__commentText}>
+                                                {comment.comment}
+                                            </Text>
+                                            <Text style={styles.commentsScreen__commenDate}>
+                                                {comment.date} {/* Если у вас есть поле с датой комментария, используйте его */}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                ))
+                            ) : (
+                                <Text>No comments yet</Text>
+                            )}
+                        </View>
+                    </ScrollView>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
+            <View style={styles.commentsScreen__tabBar}>
+                <TextInput
+                    value={comment}
+                    onChangeText={setComment}
+                    style={styles.commentsScreen__input}
+                    placeholder='Коментувати...'
+                    placeholderTextColor='#BDBDBD'
+                />
+                <TouchableOpacity
+                    onPress={onPost}
+                    style={styles.commentsScreen__btnSendContainer}
+                >
+                    <ButtonSend />
+                </TouchableOpacity>
             </View>
-            <View style={styles.commentsScreen__commentsBox}>
-                <View style={styles.commentsScreen__comment}>
-                    <View style={styles.commentsScreen__avatarBox}>
-                        <Image
-                            style={styles.commentsScreen__avatar}
-                            source={avatar} />
-                    </View>
-                    
-                    <View style={styles.commentsScreen__textBox}>
-                        <Text style={styles.commentsScreen__commentText}>Really love your most recent photo.
-                            I’ve been trying to capture the same thing
-                            for a few months and would love some tips!
-                        </Text>
-                        <Text style={styles.commentsScreen__commenDate}
-                        >09 червня, 2020 | 08:40
-                        </Text>
-                    </View>
-                </View>
-                <View style={styles.commentsScreen__commentEven}>
-                    <View style={styles.commentsScreen__avatarBox}>
-                        <Image
-                        style={styles.commentsScreen__avatar}
-                        source={user} />
-                    </View>
-                    <View style={styles.commentsScreen__textBoxEven}>
-                        <Text style={styles.commentsScreen__commentText}>A fast 50mm like f1.8 would help
-                            with the bokeh. I’ve been using primes as they tend to get a bit sharper images.
-                        </Text>
-                        <Text style={styles.commentsScreen__commenDateEven}
-                        >09 червня, 2020 | 09:14
-                        </Text>
-                    </View>
-                </View>
-                <View style={styles.commentsScreen__comment}>
-                    <View style={styles.commentsScreen__avatarBox}>
-                        <Image
-                        style={styles.commentsScreen__avatar}
-                        source={avatar} />
-                    </View>
-                    <View style={styles.commentsScreen__textBox}>
-                        <Text style={styles.commentsScreen__commentText}>Thank you! That was very helpful!
-                        </Text>
-                        <Text style={styles.commentsScreen__commenDate}
-                        >09 червня, 2020 | 09:20
-                        </Text>
-                    </View>
-                </View>
-            </View>
-        </ScrollView>            
-    </TouchableWithoutFeedback>
-</KeyboardAvoidingView>
-    <View style={styles.commentsScreen__tabBar}>
-        <TextInput
-            value={comment}
-            onChangeText={setComment}
-            style={styles.commentsScreen__input}
-            placeholder='Коментувати...'
-            placeholderTextColor='#BDBDBD'
-            />
-        <TouchableOpacity
-            onPress={onPost}
-            style={styles.commentsScreen__btnSendContainer}
-        >
-            <ButtonSend/>
-        </TouchableOpacity>
-    </View>
-</View>
+        </View>
     );
 };
 
