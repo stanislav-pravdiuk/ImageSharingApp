@@ -12,6 +12,7 @@ import { db } from '../firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
 import user from '../images/user.jpg';
 import IconChat from '../components/icons/IconChat';
+import IconChatFill from '../components/icons/IconChatFill';
 import IconMapPin from '../components/icons/IconMapPin';
 import { useSelector } from 'react-redux';
 
@@ -49,7 +50,7 @@ function PostsScreen() {
         }
         navigation.navigate('MapScreen',{latitude: location.latitude, longitude: location.longitude})
     };
-
+console.log('posts', posts)
     return (
         <View style={styles.posts}>
             <View style={styles.posts__user}>
@@ -78,9 +79,11 @@ function PostsScreen() {
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <TouchableOpacity
                                 onPress={()=>onComment(post.id, post.data.downloadURL)}>
-                                <IconChat/>
+                                    {post.data.commentsCount !== 0
+                                        ? <IconChatFill />
+                                : <IconChat/>}
                             </TouchableOpacity>                            
-                            <Text style={styles.profile__Qty}>8</Text></View>
+                            <Text style={styles.profile__Qty}>{post.data.commentsCount}</Text></View>
                             <TouchableOpacity
                                 onPress={()=>onMap(post.data.location)}
                                 style={styles.profile__navi}>

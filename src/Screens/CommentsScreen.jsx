@@ -11,11 +11,10 @@ import {
     ScrollView,
 } from 'react-native';
 import avatar from '../images/avatar.jpg';
-import user from '../images/user.jpg';
 import ButtonSend from '../components/buttons/ButtonSend';
 import sunset from '../images/sunset.jpg';
 import { useRoute } from '@react-navigation/native';
-import { doc, addDoc, collection, getDocs } from "firebase/firestore";
+import { doc, updateDoc, addDoc, collection, getDocs, increment } from "firebase/firestore";
 import { db } from '../firebase/config';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -52,6 +51,10 @@ function CommentsScreen() {
                 nickname,
                 comment,
                 date: format(new Date(), 'dd MMMM, yyyy | HH:mm', { locale: uk }),
+            });
+
+            await updateDoc(postRef, {
+                commentsCount: increment(1),
             });
             console.log("документ создан");
         } catch (error) {

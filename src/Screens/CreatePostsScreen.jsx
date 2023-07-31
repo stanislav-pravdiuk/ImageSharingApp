@@ -67,7 +67,8 @@ function CreatePostsScreen() {
                     location,
                     userId,
                     nickname,
-                    downloadURL
+                    downloadURL,
+                    commentsCount: 0,
                 });
                 console.log('Document written with ID: ', docRef.id);
             } catch (e) {
