@@ -7,7 +7,6 @@ import ButtonLogOut from "../components/buttons/ButtonLogOut";
 import IconAddPost from "../components/icons/IconAddPost";
 import IconUser from "../components/icons/IconUser";
 import IconGrid from '../components/icons/IconGrid';
-import { useSelector } from "react-redux";
 
 
 const Tabs = createBottomTabNavigator();

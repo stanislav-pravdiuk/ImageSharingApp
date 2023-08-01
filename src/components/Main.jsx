@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { authStateChangeUser } from "../redux/auth/authOperations";
 import RegistrationScreen from '../Screens/RegistrationScreen';
@@ -9,39 +9,49 @@ import PostsScreen from '../Screens/PostsScreen'
 import CreatePostsScreen from '../Screens/CreatePostsScreen';
 import CommentsScreen from '../Screens/CommentsScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
-import Home from '../Screens/Home.jsx'
+import Home from '../Screens/Home';
 import MapScreen from '../Screens/MapScreen';
 
 
 const MainStack = createStackNavigator();
 
 function Main() {
-    
+
+    const loggedIn = useSelector(state => state.auth.userId);
+    console.log(loggedIn)
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(authStateChangeUser())
     }, []);
 
+    if (!loggedIn) {
+        return (
+            <NavigationContainer>
+                <MainStack.Navigator initialRouteName="LoginScreen">
+                    <MainStack.Screen
+                        name="RegistrationScreen"
+                        options={{
+                            headerShown: false,
+                        }}
+                    >{() => <RegistrationScreen />}
+                    </MainStack.Screen>
+
+                    <MainStack.Screen
+                        name="LoginScreen"
+                        options={{
+                            headerShown: false,
+                        }}
+                    >{() => <LoginScreen />}
+                    </MainStack.Screen>
+                </MainStack.Navigator>
+            </NavigationContainer>
+        );
+    };
+
     return (
         <NavigationContainer>
-            <MainStack.Navigator initialRouteName="LoginScreen">
-                <MainStack.Screen
-                    name="RegistrationScreen"
-                    options={{
-                        headerShown: false,
-                    }}
-                >{() => <RegistrationScreen />}
-                </MainStack.Screen>
-
-                <MainStack.Screen
-                    name="LoginScreen"
-                    options={{
-                        headerShown: false,
-                    }}
-                >{() => <LoginScreen />}
-                </MainStack.Screen>
-
+            <MainStack.Navigator initialRouteName="Home">
                 <MainStack.Screen
                     name="Home"
                     options={{
