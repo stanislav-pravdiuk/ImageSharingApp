@@ -82,50 +82,6 @@ const getAllPost = async () => {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={styles.profile__postsContainer}>
-                {/* <View style={styles.profile__postBox}>
-                    <View style={styles.profile__image}>
-                        <Image source={forest}/>
-                    </View>
-                    <Text style={styles.profile__text}>Ліс</Text>
-                    <View style={styles.profile__stat}>
-                        <TouchableOpacity onPress={onComment}>
-                            <IconChatFill/>
-                        </TouchableOpacity>                            
-                        <Text style={styles.profile__Qty}>8</Text>
-                        <TouchableOpacity onPress={onLike}>
-                            <IconLike/>
-                        </TouchableOpacity>
-                        <Text style={styles.profile__Qty}>153</Text>
-                        <TouchableOpacity
-                            onPress={onMap}
-                            style={styles.profile__navi}>
-                            <IconMapPin/>
-                            <Text style={styles.profile__textNavi}>Ukraine</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={styles.profile__postBox}>
-                    <View style={styles.profile__image}>
-                        <Image source={sunset}/>
-                    </View>
-                    <Text style={styles.profile__text}>Захід на чорному морі</Text>
-                    <View style={styles.profile__stat}>
-                        <TouchableOpacity onPress={onComment}>
-                            <IconChatFill/>
-                        </TouchableOpacity>                            
-                        <Text style={styles.profile__Qty}>3</Text>
-                        <TouchableOpacity onPress={onLike}>
-                            <IconLike/>
-                        </TouchableOpacity>
-                        <Text style={styles.profile__Qty}>200</Text>
-                        <TouchableOpacity
-                            onPress={onMap}
-                            style={styles.profile__navi}>
-                            <IconMapPin/>
-                            <Text style={styles.profile__textNavi}>Ukraine</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View> */}
                 {posts.map((post) => (
                     <View
                         key={post.id}
@@ -137,7 +93,8 @@ const getAllPost = async () => {
                             />
                     </View>
                     <Text style={styles.profile__text}>{post.data.picTitle}</Text>
-                    <View style={styles.profile__stat}>
+                        <View style={styles.profile__stat}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                             <TouchableOpacity
                                 onPress={() => onComment(post.id, post.data.downloadURL)}>
                                     {post.data.commentsCount !== 0
@@ -148,7 +105,8 @@ const getAllPost = async () => {
                         <TouchableOpacity onPress={() => onLike(post.id)}>
                             <IconLike/>
                         </TouchableOpacity>
-                        <Text style={styles.profile__Qty}>{post.data.likesCount}</Text>
+                                <Text style={styles.profile__Qty}>{post.data.likesCount}</Text>
+                                </View>
                         <TouchableOpacity
                             onPress={()=>onMap(post.data.location)}
                             style={styles.profile__navi}>
@@ -219,7 +177,8 @@ const styles = StyleSheet.create({
     profile__stat: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginRight: 24,
+        // marginRight: 24,
+        justifyContent:'space-between'
     },
     profile__Qty: {
         fontSize: 16,
@@ -230,7 +189,8 @@ const styles = StyleSheet.create({
     profile__navi: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: 117,
+        // marginLeft: 117,
+        
     },
     profile__textNavi: {
         textDecorationLine: 'underline',

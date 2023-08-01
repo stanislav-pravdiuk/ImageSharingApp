@@ -15,6 +15,7 @@ import user from '../images/user.jpg';
 import IconChat from '../components/icons/IconChat';
 import IconChatFill from '../components/icons/IconChatFill';
 import IconMapPin from '../components/icons/IconMapPin';
+import IconLike from '../components/icons/IconLike';
 
 
 function PostsScreen() {
@@ -79,14 +80,19 @@ function PostsScreen() {
                         </View>
                         <Text style={styles.profile__text}>{post.data.picTitle}</Text>
                         <View style={styles.profile__stat}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                                 <TouchableOpacity
                                 onPress={()=>onComment(post.id, post.data.downloadURL)}>
                                     {post.data.commentsCount !== 0
                                         ? <IconChatFill />
                                         : <IconChat/>}
                             </TouchableOpacity>                            
-                            <Text style={styles.profile__Qty}>{post.data.commentsCount}</Text></View>
+                                <Text style={styles.profile__Qty}>{post.data.commentsCount}</Text>
+                                <TouchableOpacity onPress={() => onLike(post.id)}>
+                            <IconLike/>
+                        </TouchableOpacity>
+                        <Text style={styles.profile__Qty}>{post.data.likesCount}</Text>
+                            </View>
                             <TouchableOpacity
                                 onPress={()=>onMap(post.data.location)}
                                 style={styles.profile__navi}>
@@ -161,7 +167,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#212121',
         marginLeft: 6,
-        // borderWidth:1
+        marginRight: 24,
     },
     profile__navi: {
         flexDirection: 'row',
