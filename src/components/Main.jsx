@@ -1,5 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { authStateChangeUser } from "../redux/auth/authOperations";
 import RegistrationScreen from '../Screens/RegistrationScreen';
 import LoginScreen from '../Screens/LoginScreen';
 import PostsScreen from '../Screens/PostsScreen'
@@ -8,18 +11,14 @@ import CommentsScreen from '../Screens/CommentsScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
 import Home from '../Screens/Home.jsx'
 import MapScreen from '../Screens/MapScreen';
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { authStateChangeUser } from "../redux/auth/authOperations";
+
 
 const MainStack = createStackNavigator();
 
-function Main() { 
+function Main() {
+    
     const dispatch = useDispatch();
-    // const [user, setUser] = useState(null);
-    // const {stateChange} = useSelector((state) => state.auth);
-    // console.log(stateChange);
+
     useEffect(() => {
         dispatch(authStateChangeUser())
     }, []);

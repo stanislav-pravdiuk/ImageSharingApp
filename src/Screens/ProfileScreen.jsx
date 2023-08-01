@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import Background from '../components/background/Background';
 import userBig from '../images/userBig.jpg'
 import ButtonLogOut from '../components/buttons/ButtonLogOut';
-import { doc, updateDoc, addDoc, collection, getDocs, increment } from "firebase/firestore";
+import { doc, updateDoc, addDoc, collection, getDocs, increment, query, where } from "firebase/firestore";
 import { db } from '../firebase/config';
 import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar';
 import IconChatFill from '../components/icons/IconChatFill';
@@ -23,21 +23,22 @@ import IconMapPin from '../components/icons/IconMapPin';
 function ProfileScreen() {
 
     const [posts, setPosts] = useState([]);
-    const { nickname } = useSelector((state) => state.auth);
+    const { nickname, userId } = useSelector((state) => state.auth);
 
     const navigation = useNavigation();
 
     useEffect(() => {
-        const getAllPost = async () => {
-            try {
-                const snapshot = await getDocs(collection(db, 'posts'));
-                const postsData = snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
-                setPosts(postsData);
-            } catch (error) {
-                console.log(error);
-                throw error;
-            }
-        };
+const getAllPost = async () => {
+    try {
+        const q = query(collection(db, 'posts'), where('userId', '==', userId));
+        const snapshot = await getDocs(q);
+        const postsData = snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
+        setPosts(postsData);
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
 
         getAllPost();
     }, []);
@@ -46,7 +47,7 @@ function ProfileScreen() {
         navigation.navigate('CommentsScreen', { postId: id, uri: url })
     };
 
-    const onLike = async () => {
+    const onLike = async (postId) => {
         const postRef = doc(db, 'posts', postId);
         await updateDoc(postRef, {
             likesCount: increment(1),
@@ -144,7 +145,7 @@ function ProfileScreen() {
                                         : <IconChat/>}
                         </TouchableOpacity>                            
                         <Text style={styles.profile__Qty}>{post.data.commentsCount}</Text>
-                        <TouchableOpacity onPress={onLike}>
+                        <TouchableOpacity onPress={() => onLike(post.id)}>
                             <IconLike/>
                         </TouchableOpacity>
                         <Text style={styles.profile__Qty}>{post.data.likesCount}</Text>
