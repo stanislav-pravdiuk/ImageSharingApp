@@ -6,32 +6,60 @@ import {
     TouchableOpacity,
     ScrollView,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import Background from '../components/background/Background';
 import userBig from '../images/userBig.jpg'
 import ButtonLogOut from '../components/buttons/ButtonLogOut';
-import forest from '../images/forest.png';
-import sunset from '../images/sunset.jpg';
-import house from '../images/house.jpg';
+import { doc, updateDoc, addDoc, collection, getDocs, increment } from "firebase/firestore";
+import { db } from '../firebase/config';
 import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar';
 import IconChatFill from '../components/icons/IconChatFill';
+import IconChat from '../components/icons/IconChat';
 import IconLike from '../components/icons/IconLike';
 import IconMapPin from '../components/icons/IconMapPin';
-import { useNavigation } from '@react-navigation/native';
 
 function ProfileScreen() {
 
+    const [posts, setPosts] = useState([]);
+    const { nickname } = useSelector((state) => state.auth);
+
     const navigation = useNavigation();
 
-    function onComment() { 
-        navigation.navigate('CommentsScreen')
+    useEffect(() => {
+        const getAllPost = async () => {
+            try {
+                const snapshot = await getDocs(collection(db, 'posts'));
+                const postsData = snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
+                setPosts(postsData);
+            } catch (error) {
+                console.log(error);
+                throw error;
+            }
+        };
+
+        getAllPost();
+    }, []);
+
+    function onComment(id, url) { 
+        navigation.navigate('CommentsScreen', { postId: id, uri: url })
     };
 
-    function onLike() { 
-        console.log('добавит лайк')
+    const onLike = async () => {
+        const postRef = doc(db, 'posts', postId);
+        await updateDoc(postRef, {
+            likesCount: increment(1),
+        });
+        console.log("документ создан");
     };
 
-    function onMap() { 
-        navigation.navigate('MapScreen',{latitude: 50.110132, longitude: 30.626496})
+    function onMap(location) { 
+        if (!location) {
+            alert('not coords')
+            return
+        }
+        navigation.navigate('MapScreen',{latitude: location.latitude, longitude: location.longitude})
     };
 
     return (
@@ -48,12 +76,12 @@ function ProfileScreen() {
                 <View style={styles.profile__btnLogOut}>
                     <ButtonLogOut />
                 </View>
-                    <Text style={styles.profile__title}>Natali Romanova</Text>
+                    <Text style={styles.profile__title}>{nickname}</Text>
             </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={styles.profile__postsContainer}>
-                <View style={styles.profile__postBox}>
+                {/* <View style={styles.profile__postBox}>
                     <View style={styles.profile__image}>
                         <Image source={forest}/>
                     </View>
@@ -96,29 +124,39 @@ function ProfileScreen() {
                             <Text style={styles.profile__textNavi}>Ukraine</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
-                <View style={styles.profile__postBox}>
+                </View> */}
+                {posts.map((post) => (
+                    <View
+                        key={post.id}
+                        style={styles.profile__postBox}
+                    >
                     <View style={styles.profile__image}>
-                        <Image source={house}/>
+                            <Image source={{ uri: post.data.downloadURL }}
+                            style={{width: '100%', height: 450, resizeMode: 'contain', borderRadius: 8}}
+                            />
                     </View>
-                    <Text style={styles.profile__text}>Старий будиночок у Венеції</Text>
+                    <Text style={styles.profile__text}>{post.data.picTitle}</Text>
                     <View style={styles.profile__stat}>
-                        <TouchableOpacity onPress={onComment}>
-                            <IconChatFill/>
+                            <TouchableOpacity
+                                onPress={() => onComment(post.id, post.data.downloadURL)}>
+                                    {post.data.commentsCount !== 0
+                                        ? <IconChatFill />
+                                        : <IconChat/>}
                         </TouchableOpacity>                            
-                        <Text style={styles.profile__Qty}>50</Text>
+                        <Text style={styles.profile__Qty}>{post.data.commentsCount}</Text>
                         <TouchableOpacity onPress={onLike}>
                             <IconLike/>
                         </TouchableOpacity>
-                        <Text style={styles.profile__Qty}>200</Text>
+                        <Text style={styles.profile__Qty}>{post.data.likesCount}</Text>
                         <TouchableOpacity
-                            onPress={onMap}
+                            onPress={()=>onMap(post.data.location)}
                             style={styles.profile__navi}>
                             <IconMapPin/>
-                            <Text style={styles.profile__textNavi}>Italy</Text>
+                            <Text style={styles.profile__textNavi}>{post.data.locationTitle}</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+                    </View>
+                    ))}
             </ScrollView>
         </View>   
     )

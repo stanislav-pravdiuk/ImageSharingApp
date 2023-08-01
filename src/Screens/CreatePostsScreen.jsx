@@ -69,6 +69,7 @@ function CreatePostsScreen() {
                     nickname,
                     downloadURL,
                     commentsCount: 0,
+                    likesCount:0,
                 });
                 console.log('Document written with ID: ', docRef.id);
             } catch (e) {

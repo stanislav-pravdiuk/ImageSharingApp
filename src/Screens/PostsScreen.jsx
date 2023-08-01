@@ -6,21 +6,21 @@ import {
     ScrollView,
     TouchableOpacity,
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { db } from '../firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
+import { useSelector } from 'react-redux';
 import user from '../images/user.jpg';
 import IconChat from '../components/icons/IconChat';
 import IconChatFill from '../components/icons/IconChatFill';
 import IconMapPin from '../components/icons/IconMapPin';
-import { useSelector } from 'react-redux';
+
 
 function PostsScreen() {
 
     const [posts, setPosts] = useState([]);
-
-    const { nickname } = useSelector((state) => state.auth);
+    const { nickname, email } = useSelector((state) => state.auth);
 
     const navigation = useNavigation();
 
@@ -50,7 +50,7 @@ function PostsScreen() {
         }
         navigation.navigate('MapScreen',{latitude: location.latitude, longitude: location.longitude})
     };
-console.log('posts', posts)
+
     return (
         <View style={styles.posts}>
             <View style={styles.posts__user}>
@@ -62,14 +62,17 @@ console.log('posts', posts)
                 </View>
                 <View style={styles.posts__UserData}>
                     <Text style={styles.posts__UserName}>{nickname}</Text>
-                    <Text style={styles.posts__UserEmail}>email@example.com</Text>
+                    <Text style={styles.posts__UserEmail}>{email}</Text>
                 </View>
             </View>    
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={styles.profile__postsContainer}>
                 {posts.map((post) => (
-                    <View key={post.id} style={styles.profile__postBox}>
+                    <View
+                        key={post.id}
+                        style={styles.profile__postBox}
+                    >
                         <View style={styles.profile__image}>
                             <Image source={{ uri: post.data.downloadURL }}
                             style={{width: '100%', height: 450, resizeMode: 'contain', borderRadius: 8}}/>
@@ -81,7 +84,7 @@ console.log('posts', posts)
                                 onPress={()=>onComment(post.id, post.data.downloadURL)}>
                                     {post.data.commentsCount !== 0
                                         ? <IconChatFill />
-                                : <IconChat/>}
+                                        : <IconChat/>}
                             </TouchableOpacity>                            
                             <Text style={styles.profile__Qty}>{post.data.commentsCount}</Text></View>
                             <TouchableOpacity
