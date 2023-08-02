@@ -23,7 +23,7 @@ import IconMapPin from '../components/icons/IconMapPin';
 function ProfileScreen() {
 
     const [posts, setPosts] = useState([]);
-    const { nickname, userId } = useSelector((state) => state.auth);
+    const { nickname, userId, avatar } = useSelector((state) => state.auth);
 
     const navigation = useNavigation();
 
@@ -68,7 +68,8 @@ const getAllPost = async () => {
             <Background/>
             <View style={styles.profile}>
                 <Image
-                    source={userBig}
+                    source={{ uri: avatar }}
+                    // style={{width:50, height:50}}
                     style={styles.profile__avatar}
                 />
                 <View style={styles.profile__btnDel}>

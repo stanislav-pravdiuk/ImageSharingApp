@@ -13,18 +13,30 @@ import { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from 'react-redux';
 import { authSignUpUser } from '../redux/auth/authOperations';
+import { storage } from '../firebase/config';
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Background from '../components/background/Background';
 import ButtonAddAvatar from '../components/buttons/ButtonAddAvatar';
 import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar';
 import ComponentCamera from '../components/camera/ComponentCamera';
+import { useEffect } from 'react';
 
 const initialState = {
     email: "",
     password: "",
     nickname: "",
+    avatar:""
 };
 
 function RegistrationScreen() {
+
+    useEffect(() => {
+        if (state.avatar) {
+            dispatch(authSignUpUser(state));
+            navigation.navigate("Home");
+            setstate(initialState);
+        }
+    },[]);
 
     const [state, setstate] = useState(initialState);
     const [showCamera, setShowCamera] = useState(false);
@@ -33,12 +45,11 @@ function RegistrationScreen() {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    console.log(picSource)
+
     
     function onRegistration() {
-        dispatch(authSignUpUser(state));
-        setstate(initialState);
-        navigation.navigate("Home");
+        uploadPhotoToServer()
+
     };
 
     function onView() {
@@ -57,6 +68,35 @@ function RegistrationScreen() {
     function onSetPicSource(uri) {
         setPicSource(uri);
         setShowCamera(false);
+    };
+
+    const uploadPhotoToServer = async () => {
+        const response = await fetch(picSource);
+        const file = await response.blob();
+        const uniquePostId = Date.now().toString();
+        const storageRef = ref(storage, `/users/${uniquePostId}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log(`Upload progress: ${progress}%`);
+            },
+            (error) => {
+                console.error("Error during upload:", error);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    setstate((prevState) => ({ ...prevState, avatar: downloadURL }));
+                            console.log(downloadURL)
+                            console.log("state",state)
+        // dispatch(authSignUpUser(state));
+        // navigation.navigate("Home");
+        // setstate(initialState);
+                }
+                );
+            }
+        );
     };
     
     return (

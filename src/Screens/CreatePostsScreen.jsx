@@ -1,6 +1,5 @@
 import { storage, db } from '../firebase/config';
-import { collection, addDoc } from "firebase/firestore";
-import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage"
+import { ref, uploadBytesResumable, getDownloadURL, collection, addDoc } from "firebase/storage";
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -100,7 +99,6 @@ function CreatePostsScreen() {
             }
         );
     };
-
 
     function resetState() { 
         setPicTitle('');

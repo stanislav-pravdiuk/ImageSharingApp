@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { db } from '../firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
-import user from '../images/user.jpg';
+// import user from '../images/user.jpg';
 import IconChat from '../components/icons/IconChat';
 import IconChatFill from '../components/icons/IconChatFill';
 import IconMapPin from '../components/icons/IconMapPin';
@@ -21,8 +21,8 @@ import IconLike from '../components/icons/IconLike';
 function PostsScreen() {
 
     const [posts, setPosts] = useState([]);
-    const { nickname, email } = useSelector((state) => state.auth);
-
+    const { nickname, email, avatar } = useSelector((state) => state.auth);
+console.log(avatar)
     const navigation = useNavigation();
 
     useEffect(() => {
@@ -55,10 +55,12 @@ function PostsScreen() {
     return (
         <View style={styles.posts}>
             <View style={styles.posts__user}>
-                <View style={styles.posts__userAvatarContainer}>
+                <View
+                    style={styles.posts__userAvatarContainer}>
                     <Image
-                        source={user}
+                        source={{ uri: avatar }}
                         style={styles.posts__userAvatarImg}
+                        // style={{width:50, height:50}}
                     />
                 </View>
                 <View style={styles.posts__UserData}>

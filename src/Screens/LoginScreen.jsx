@@ -61,9 +61,9 @@ function LoginScrin() {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>                        
                     <View style={styles.log}>                    
                         <Image style={styles.log__avatar} />
-                        <View style={styles.log__add}>
+                        {/* <View style={styles.log__add}>
                             <ButtonDelAvatar />
-                        </View>
+                        </View> */}
                         <Text style={styles.log__title}>Увійти</Text>
                         <TextInput
                             value={state.email}
