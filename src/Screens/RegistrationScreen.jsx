@@ -15,6 +15,8 @@ import { useDispatch } from 'react-redux';
 import { authSignUpUser } from '../redux/auth/authOperations';
 import Background from '../components/background/Background';
 import ButtonAddAvatar from '../components/buttons/ButtonAddAvatar';
+import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar';
+import ComponentCamera from '../components/camera/ComponentCamera';
 
 const initialState = {
     email: "",
@@ -24,11 +26,15 @@ const initialState = {
 
 function RegistrationScreen() {
 
+    const [state, setstate] = useState(initialState);
+    const [showCamera, setShowCamera] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [picSource, setPicSource] = useState(null);
+
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const [state, setstate] = useState(initialState);
-    const [showPassword, setShowPassword] = useState(false);
-
+    console.log(picSource)
+    
     function onRegistration() {
         dispatch(authSignUpUser(state));
         setstate(initialState);
@@ -42,6 +48,15 @@ function RegistrationScreen() {
 
     function onRedirectToLogin() {
         navigation.navigate("LoginScreen")
+    };
+
+    function onCamera() { 
+        setShowCamera(true)
+    };
+
+    function onSetPicSource(uri) {
+        setPicSource(uri);
+        setShowCamera(false);
     };
     
     return (
@@ -60,11 +75,30 @@ function RegistrationScreen() {
             >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={styles.reg}>
-                        <Image
-                            style={styles.reg__avatar}
-                        />
+                        {showCamera
+                            ? <View
+                                style={styles.reg__avatarCam}>
+                                <ComponentCamera onPictureTaken={onSetPicSource}/>
+                            </View>
+                            : <Image
+                                source={picSource
+                                    ? { uri: picSource }
+                                    : require('../images/user.jpg')}
+                                style={styles.reg__avatar}
+                            />
+                        }
                         <View style={styles.reg__add}>
-                            <ButtonAddAvatar />
+                            {showCamera ? null : (
+                                picSource ? (
+                                    <TouchableOpacity onPress={() => { setPicSource('') }}>
+                                        <ButtonDelAvatar />
+                                    </TouchableOpacity>
+                                ) : (
+                                    <TouchableOpacity onPress={onCamera}>
+                                        <ButtonAddAvatar />
+                                    </TouchableOpacity>
+                                )
+                            )}
                         </View>
                         <Text style={styles.reg__title}>Реєстрація</Text>
                         <TextInput
@@ -122,13 +156,13 @@ function RegistrationScreen() {
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
         </View>
-    );
+    )
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: '100%'
+        width: '100%',
     },
     reg: {
         alignItems: 'center',
@@ -146,6 +180,15 @@ const styles = StyleSheet.create({
         top: -60,
         backgroundColor: "#F6F6F6",
         borderRadius: 25,
+    },
+    reg__avatarCam: {
+        position: 'absolute',
+        width: 180,
+        height: 180,
+        top: -60,
+        backgroundColor: "#F6F6F6",
+        borderRadius: 25,
+        overflow: 'hidden',
     },
     reg__add: {
         width: 25,
