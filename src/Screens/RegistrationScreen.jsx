@@ -88,6 +88,10 @@ function RegistrationScreen() {
         }
         );
     };
+
+    const areAllFieldsFilled = () => {
+        return state.email !== "" && state.password !== "" && state.nickname !== "" && picSource !== "";
+    };
     
     return (
         <View
@@ -168,10 +172,13 @@ function RegistrationScreen() {
                                 : 'Показати'}
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.reg__btn}>
+                        <TouchableOpacity
+                            style={[styles.reg__btn, { opacity: areAllFieldsFilled() ? 1 : 0.5 }]}
+                            disabled={!areAllFieldsFilled()}
+                            onPress={onRegistration}>
                             <Text
                                 style={styles.reg__btnText}
-                                onPress={onRegistration}
+                                // onPress={onRegistration}
                             >Реєстрація
                             </Text>
                         </TouchableOpacity>
