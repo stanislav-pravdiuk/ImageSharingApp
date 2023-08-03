@@ -42,6 +42,7 @@ export const authSignInUser = ({ email, password }) => async (dispatch, getState
         const user = userCredential.user;
 
         console.log("user", user);
+        dispatch(updateUserProfileWithPhotoURL(user));
     } catch (error) {
         console.log("error", error);
         console.log("error.message", error.message);
@@ -64,7 +65,7 @@ export const authStateChangeUser = () => async (dispatch, getSatte) => {
         if (user) {
                     const updatedProfile = {
             nickname: user.displayName,
-                        userId: user.uid,
+            userId: user.uid,
             email: user.email
         };
             dispatch(updateUserProfile(updatedProfile));
@@ -72,3 +73,15 @@ export const authStateChangeUser = () => async (dispatch, getSatte) => {
         }
     });
 };
+
+export const updateUserProfileWithPhotoURL = (user) => async (dispatch) => {
+    const { displayName, uid, photoURL } = user;
+    const updatedProfile = {
+        nickname: displayName,
+        userId: uid,
+        avatar: photoURL,
+        email: email
+    };
+    dispatch(updateUserProfile(updatedProfile));
+};
+

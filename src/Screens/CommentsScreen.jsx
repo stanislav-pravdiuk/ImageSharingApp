@@ -10,15 +10,12 @@ import {
     Keyboard,
     ScrollView,
 } from 'react-native';
-import avatar from '../images/avatar.jpg';
 import ButtonSend from '../components/buttons/ButtonSend';
-import sunset from '../images/sunset.jpg';
 import { useRoute } from '@react-navigation/native';
 import { doc, updateDoc, addDoc, collection, getDocs, increment } from "firebase/firestore";
 import { db } from '../firebase/config';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-
 import { format } from 'date-fns';
 import { uk } from 'date-fns/locale';
 
@@ -30,6 +27,8 @@ function CommentsScreen() {
 
     const { params } = useRoute();
     const { nickname } = useSelector((state) => state.auth);
+
+    const { avatar } = useSelector((state) => state.auth);
 
     useEffect(() => { 
         getAllComments();
@@ -46,7 +45,6 @@ function CommentsScreen() {
             const postRef = doc(db, 'posts', postId);
             const commentsCollectionRef = collection(postRef, 'comments');
 
-            // Создаем новый документ с комментарием
             await addDoc(commentsCollectionRef, {
                 nickname,
                 comment,
@@ -82,7 +80,7 @@ function CommentsScreen() {
             console.log(error);
         }
     };
-// console.log(params.uri)
+
     return (
         <View style={styles.commentsScreen}>
             <KeyboardAvoidingView
@@ -126,7 +124,7 @@ function CommentsScreen() {
                                         <View style={styles.commentsScreen__avatarBox}>
                                             <Image
                                                 style={styles.commentsScreen__avatar}
-                                                source={avatar}
+                                                source={{uri: avatar}}
                                             />
                                         </View>
 

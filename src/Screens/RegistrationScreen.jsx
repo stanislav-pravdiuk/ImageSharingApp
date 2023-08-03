@@ -19,24 +19,15 @@ import Background from '../components/background/Background';
 import ButtonAddAvatar from '../components/buttons/ButtonAddAvatar';
 import ButtonDelAvatar from '../components/buttons/ButtonDelAvatar';
 import ComponentCamera from '../components/camera/ComponentCamera';
-import { useEffect } from 'react';
 
 const initialState = {
     email: "",
     password: "",
     nickname: "",
-    avatar:""
+    avatar: ""
 };
 
 function RegistrationScreen() {
-
-    useEffect(() => {
-        if (state.avatar) {
-            dispatch(authSignUpUser(state));
-            navigation.navigate("Home");
-            setstate(initialState);
-        }
-    },[]);
 
     const [state, setstate] = useState(initialState);
     const [showCamera, setShowCamera] = useState(false);
@@ -85,17 +76,16 @@ function RegistrationScreen() {
             (error) => {
                 console.error("Error during upload:", error);
             },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    setstate((prevState) => ({ ...prevState, avatar: downloadURL }));
-                            console.log(downloadURL)
-                            console.log("state",state)
-        // dispatch(authSignUpUser(state));
-        // navigation.navigate("Home");
-        // setstate(initialState);
-                }
-                );
+            async () => {
+            try {
+                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                dispatch(authSignUpUser({ ...state, avatar: downloadURL }));
+                navigation.navigate("Home");
+                setstate(initialState);
+            } catch (error) {
+                console.error("Ошибка при получении URL загрузки:", error);
             }
+        }
         );
     };
     

@@ -22,7 +22,7 @@ function PostsScreen() {
 
     const [posts, setPosts] = useState([]);
     const { nickname, email, avatar } = useSelector((state) => state.auth);
-console.log(avatar)
+
     const navigation = useNavigation();
 
     useEffect(() => {
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
     },
     posts__userAvatarContainer: {
         borderRadius: 16,
+        overflow: 'hidden',
         
     },
     posts__userAvatarImg: {

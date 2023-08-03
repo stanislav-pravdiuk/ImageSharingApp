@@ -23,7 +23,7 @@ const initialState = {
 };
 
 function LoginScrin() {
-    const statet = useSelector((state) => console.log(state));
+
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [state, setstate] = useState(initialState);

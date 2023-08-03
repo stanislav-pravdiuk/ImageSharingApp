@@ -18,7 +18,7 @@ const MainStack = createStackNavigator();
 function Main() {
 
     const loggedIn = useSelector(state => state.auth.userId);
-    console.log(loggedIn)
+
     const dispatch = useDispatch();
 
     useEffect(() => {

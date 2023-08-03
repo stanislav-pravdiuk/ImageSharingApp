@@ -10,7 +10,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Background from '../components/background/Background';
-import userBig from '../images/userBig.jpg'
 import ButtonLogOut from '../components/buttons/ButtonLogOut';
 import { doc, updateDoc, addDoc, collection, getDocs, increment, query, where } from "firebase/firestore";
 import { db } from '../firebase/config';
@@ -72,9 +71,9 @@ const getAllPost = async () => {
                     // style={{width:50, height:50}}
                     style={styles.profile__avatar}
                 />
-                <View style={styles.profile__btnDel}>
+                {/* <View style={styles.profile__btnDel}>
                     <ButtonDelAvatar />
-                </View>
+                </View> */}
                 <View style={styles.profile__btnLogOut}>
                     <ButtonLogOut />
                 </View>
@@ -152,7 +151,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     profile__btnLogOut: {
-        bottom: 3,
+        // bottom: 3,
+        marginTop: 22,
         left: 184,
         width: 24,
         height: 24,

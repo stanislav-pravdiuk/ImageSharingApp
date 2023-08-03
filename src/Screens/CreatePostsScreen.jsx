@@ -1,5 +1,6 @@
 import { storage, db } from '../firebase/config';
-import { ref, uploadBytesResumable, getDownloadURL, collection, addDoc } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { collection, addDoc } from "firebase/firestore";
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
